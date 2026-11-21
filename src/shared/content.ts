@@ -1,0 +1,305 @@
+/**
+ * All site copy lives here.
+ * Anything marked PLACEHOLDER must be replaced with real details before launch.
+ */
+import { images } from './images'
+
+export type Route =
+  | '/'
+  | '/home'
+  | '/about'
+  | '/services'
+  | '/services/cassava-processing'
+  | '/services/meat-livestock-processing'
+  | '/services/food-preservation-canning'
+  | '/services/agricultural-produce-processing'
+  | '/services/dog-breeding'
+  | '/marketplace'
+  | '/locations'
+  | '/partnerships'
+  | '/contact'
+
+export type ServiceIcon = 'cassava' | 'meat' | 'canning' | 'produce' | 'dog' | 'market'
+
+export const brand = {
+  name: 'Lathom Agroallied Limited',
+  shortName: 'Lathom',
+  tagline: 'Preserving Food. Empowering Farmers. Feeding Africa.',
+}
+
+/** PLACEHOLDER contact and social details. */
+export const contact = {
+  phone: '+234 800 000 0000', // PLACEHOLDER
+  whatsappNumber: '2348000000000', // PLACEHOLDER — digits only, used in the wa.me link
+  email: 'info@lathomagroallied.com', // PLACEHOLDER
+  social: {
+    instagram: '#instagram', // PLACEHOLDER
+    facebook: '#facebook', // PLACEHOLDER
+    linkedin: '#linkedin', // PLACEHOLDER
+    tiktok: '#tiktok', // PLACEHOLDER
+  },
+}
+
+/** The five services in the navbar. */
+export const services: { label: string; route: Route; icon: ServiceIcon }[] = [
+  { label: 'Cassava Processing', route: '/services/cassava-processing', icon: 'cassava' },
+  { label: 'Meat & Livestock Processing', route: '/services/meat-livestock-processing', icon: 'meat' },
+  { label: 'Food Preservation & Canning', route: '/services/food-preservation-canning', icon: 'canning' },
+  { label: 'Agricultural Produce Processing', route: '/services/agricultural-produce-processing', icon: 'produce' },
+  { label: 'Premium Security Dog Breeding', route: '/services/dog-breeding', icon: 'dog' },
+]
+
+export const nav = {
+  links: [
+    { label: 'Home', route: '/home' as Route },
+    { label: 'About Us', route: '/about' as Route },
+    { label: 'Our Services', route: '/services' as Route, hasMenu: true },
+    { label: 'Our Marketplace', route: '/marketplace' as Route, badge: 'Soon' },
+    { label: 'Our Locations', route: '/locations' as Route },
+    { label: 'Contact Us', route: '/contact' as Route },
+  ],
+  quote: { label: 'Get a Quote', route: '/contact' as Route },
+  marketplacePill: { label: 'Marketplace: Coming Soon', route: '/marketplace' as Route },
+}
+
+export const landing = {
+  headingTop: 'Lathom',
+  headingBottom: 'Agroallied Limited',
+  tagline: brand.tagline,
+  quoteCta: 'Get a Quote',
+  marketplaceBanner: 'Agricultural Marketplace: Coming Soon',
+}
+
+export const home = {
+  hero: {
+    title: "Preserving Africa's Harvest. Making Food Accessible to All.",
+    body: 'At Lathom Agroallied Limited, we are building sustainable solutions to Africa\u2019s food challenges through innovative agricultural processing, food preservation, livestock production and farmer-focused commerce. We transform agricultural produce into quality food products, extend the shelf life of locally produced food and create opportunities for farmers and communities to thrive.',
+    primary: { label: 'Explore Our Services', route: '/services' as Route },
+    secondary: { label: 'Partner With Us', route: '/partnerships' as Route },
+  },
+  intro: {
+    label: 'About Lathom',
+    body: 'Lathom Agroallied Limited is an African agribusiness company committed to transforming the agricultural value chain through food processing, preservation, livestock production and innovative agricultural commerce. We are starting from Nigeria, with a vision to expand our impact across Africa.',
+    link: { label: 'Learn more about us', route: '/about' as Route },
+  },
+  purpose: {
+    vision: {
+      label: 'Our Vision',
+      statement: 'Ensuring food is available and affordable on the tables of Africans.',
+      reveal:
+        'We envision an Africa where agricultural abundance translates into food security, affordability and economic prosperity for everyone. We believe that food should not go to waste while communities struggle with availability and affordability. Through better processing, preservation and distribution, we aim to bridge this gap.',
+    },
+    mission: {
+      label: 'Our Mission',
+      statement: 'To extend the shelf life of African agricultural produce.',
+      reveal:
+        'We are committed to developing efficient food processing and preservation solutions that reduce post-harvest losses, improve food accessibility and create more value from locally produced agricultural resources. By connecting farmers, processors and consumers, we aim to build a more efficient and sustainable food ecosystem.',
+    },
+  },
+  whatWeDo: {
+    title: 'What We Do',
+    intro: 'Our operations span multiple areas of the agricultural value chain.',
+    items: [
+      {
+        title: 'Cassava Processing',
+        body: 'We process cassava into essential food products, including garri and cassava flour, creating convenient, quality products from locally sourced agricultural produce.',
+        image: images.services.cassava,
+        alt: 'Peeled cassava roots being washed in a steel trough',
+        route: '/services/cassava-processing' as Route,
+      },
+      {
+        title: 'Meat & Livestock Processing',
+        body: 'We process poultry and livestock products, including chicken, guinea fowl, pork, goat meat and beef, with a focus on hygienic handling, quality and preservation.',
+        image: images.services.meat,
+        alt: 'A worker in protective clothing trimming poultry in a clean processing room',
+        route: '/services/meat-livestock-processing' as Route,
+      },
+      {
+        title: 'Food Preservation & Canning',
+        body: 'We preserve agricultural produce through processing, packaging and canning solutions. Our focus includes sweet corn, pepper and other perishable agricultural products.',
+        image: images.services.canning,
+        alt: 'Sealed jars and cans of sweet corn and pepper on a production line',
+        route: '/services/food-preservation-canning' as Route,
+      },
+      {
+        title: 'Premium Security Dog Breeding',
+        body: 'We breed quality, documented dogs suitable for farm, estate and property security. Our breeding programme includes Boerboel, German Shepherd, Belgian Malinois and Caucasian Shepherd breeds.',
+        image: images.services.dogs,
+        alt: 'A handler seated between a Boerboel and a German Shepherd on an estate',
+        route: '/services/dog-breeding' as Route,
+      },
+      {
+        title: 'Agricultural Marketplace',
+        badge: 'Coming Soon',
+        body: 'We are developing a digital marketplace that will connect farmers directly with communities, retailers and bulk purchasers, making it easier to source agricultural produce at competitive prices.',
+        image: images.services.marketplace,
+        alt: 'A farmer handing a crate of fresh produce to a buyer',
+        route: '/marketplace' as Route,
+      },
+    ],
+  },
+  products: {
+    title: 'Featured Agricultural Products',
+    intro: 'Enquire about availability, volumes and supply arrangements for any of our products.',
+    cta: 'Enquire',
+    items: [
+      { name: 'Garri', category: 'Cassava', image: images.products.garri },
+      { name: 'Cassava Flour', category: 'Cassava', image: images.products.cassavaFlour },
+      { name: 'Chicken', category: 'Poultry', image: images.products.chicken },
+      { name: 'Guinea Fowl', category: 'Poultry', image: images.products.guineaFowl },
+      { name: 'Pork', category: 'Livestock', image: images.products.pork },
+      { name: 'Goat Meat', category: 'Livestock', image: images.products.goatMeat },
+      { name: 'Beef', category: 'Livestock', image: images.products.beef },
+      { name: 'Sweet Corn (Canned)', category: 'Preserved', image: images.products.sweetCorn },
+      { name: 'Pepper', category: 'Preserved', image: images.products.pepper },
+    ],
+  },
+  marketplace: {
+    badge: 'Coming Soon',
+    title: 'Connecting Farmers Directly to Markets.',
+    subtitle: 'A Better Way to Buy and Sell Agricultural Produce.',
+    steps: [
+      { title: 'Farmers List Their Produce', icon: 'list' },
+      { title: 'Buyers Place Orders', icon: 'cart' },
+      { title: 'Direct Farmer-to-Buyer Connection', icon: 'link' },
+      { title: 'Order Coordination', icon: 'truck' },
+    ] as { title: string; icon: 'list' | 'cart' | 'link' | 'truck' }[],
+    cta: 'Register Your Interest',
+    modal: {
+      title: 'Register your interest',
+      body: 'Be the first to know when the Lathom Agricultural Marketplace opens.',
+      roles: ['Farmer', 'Supplier', 'Bulk Buyer'],
+      submit: 'Register Interest',
+      successTitle: 'You\u2019re on the list',
+      successBody: 'Thank you. We\u2019ll contact you as soon as the marketplace opens for registration.',
+    },
+  },
+  why: {
+    title: 'More Than Agriculture. We Create Value Across the Food Chain.',
+    items: [
+      { title: 'Value Addition', icon: 'value', body: 'We transform raw agricultural produce into processed products with greater convenience and commercial value.' },
+      { title: 'Food Preservation', icon: 'preserve', body: 'We focus on reducing post-harvest losses and extending the useful shelf life of agricultural produce.' },
+      { title: 'Farmer-Centred Approach', icon: 'farmer', body: 'We recognise farmers as critical partners in building a sustainable food ecosystem.' },
+      { title: 'Diversified Agricultural Operations', icon: 'diverse', body: 'Our business spans crop processing, livestock products, food preservation and agricultural commerce.' },
+      { title: 'Long-Term Vision', icon: 'vision', body: 'We are building a business designed to grow beyond traditional farming and contribute to Africa\u2019s broader food security objectives.' },
+    ] as { title: string; icon: 'value' | 'preserve' | 'farmer' | 'diverse' | 'vision'; body: string }[],
+  },
+  partner: {
+    title: "Let's Build a Better Agricultural Future Together.",
+    body: 'We welcome partnerships with individuals, organisations and businesses interested in building sustainable agricultural value chains.',
+    audiences: [
+      'Crop farmers and cooperatives',
+      'Livestock and poultry farmers',
+      'Produce suppliers',
+      'Distributors and wholesalers',
+      'Retailers and supermarkets',
+      'Food processing companies',
+      'Investors and development organisations',
+      'Community associations and bulk purchasers',
+    ],
+    cta: { label: 'Become a Partner', route: '/partnerships' as Route },
+  },
+}
+
+export const enquiry = {
+  title: 'Send an enquiry',
+  body: 'Tell us what you need and the right team will get back to you.',
+  natures: [
+    'Food Products',
+    'Cassava Processing',
+    'Meat & Livestock Products',
+    'Food Preservation',
+    'Dog Breeding',
+    'Agricultural Marketplace',
+    'Partnership',
+    'Investment',
+    'Other',
+  ],
+  submit: 'Send Enquiry',
+  sending: 'Sending\u2026',
+  successTitle: 'Enquiry sent',
+  successBody: 'Thank you for contacting Lathom Agroallied. A member of our team will be in touch shortly.',
+}
+
+export const footer = {
+  name: 'Lathom Agroallied Limited',
+  tagline: brand.tagline,
+  about:
+    'We are committed to transforming Africa\u2019s agricultural value chain through innovative food processing, preservation, livestock production and agricultural commerce.',
+  quickLinks: [
+    { label: 'Home', route: '/home' as Route },
+    { label: 'About Us', route: '/about' as Route },
+    { label: 'Our Services', route: '/services' as Route },
+    { label: 'Agricultural Marketplace', route: '/marketplace' as Route },
+    { label: 'Partnerships', route: '/partnerships' as Route },
+    { label: 'Contact Us', route: '/contact' as Route },
+  ],
+  services: [
+    { label: 'Cassava Processing', route: '/services/cassava-processing' as Route },
+    { label: 'Livestock Processing', route: '/services/meat-livestock-processing' as Route },
+    { label: 'Food Preservation & Canning', route: '/services/food-preservation-canning' as Route },
+    { label: 'Premium Security Dog Breeding', route: '/services/dog-breeding' as Route },
+  ],
+  copyright: '\u00a9 2026 Lathom Agroallied Limited. All Rights Reserved.',
+}
+
+export const about = {
+  hero: {
+    title: 'About Us',
+    subtitle: 'An African agribusiness building lasting value across the food chain.',
+    ctas: [
+      { label: 'Explore Our Services', route: '/services' as Route },
+      { label: 'Partner With Us', route: '/partnerships' as Route },
+    ] as [{ label: string; route: Route }, { label: string; route: Route }],
+  },
+  who: {
+    label: 'Who We Are',
+    title: 'Transforming the Agricultural Value Chain',
+    paragraphs: [
+      'Lathom Agroallied Limited is an African agribusiness company committed to transforming the agricultural value chain through food processing, preservation, livestock production and innovative agricultural commerce.',
+      'We believe that Africa\u2019s food challenge is not simply about producing more food. It is also about preserving what is produced, reducing waste, improving distribution and making quality food accessible and affordable.',
+      'Across the continent, farmers work tirelessly to produce food, yet a significant amount of agricultural produce loses value due to inadequate processing, storage and preservation infrastructure.',
+      'At Lathom, we are building solutions to address these challenges.',
+      'From transforming cassava into everyday food products to preserving perishable agricultural produce, processing livestock products and connecting farmers directly to consumers, our goal is to create sustainable value at every stage of the agricultural value chain.',
+    ],
+    callout: 'We are starting from Nigeria, with a vision to expand our impact across Africa.',
+  },
+  values: {
+    title: 'Our Core Values',
+    items: [
+      { title: 'Food Security', icon: 'security', body: 'We believe everyone deserves access to sufficient, quality and affordable food.' },
+      { title: 'Innovation', icon: 'innovation', body: 'We continuously explore better ways to process, preserve, package and distribute agricultural products.' },
+      { title: 'Quality & Integrity', icon: 'quality', body: 'We are committed to maintaining quality standards, transparency and responsible business practices.' },
+      { title: 'Sustainability', icon: 'sustain', body: 'We promote responsible agricultural practices, waste reduction and the efficient utilisation of available resources.' },
+      { title: 'Empowerment', icon: 'empower', body: 'We believe farmers are central to Africa\u2019s economic development. Our business model seeks to create opportunities for farmers and agricultural communities.' },
+    ] as { title: string; icon: 'security' | 'innovation' | 'quality' | 'sustain' | 'empower'; body: string }[],
+  },
+  philosophy: {
+    label: 'Our Philosophy',
+    lead: 'We believe that every harvest represents an opportunity.',
+    lines: [
+      'An opportunity to feed a family, empower a farmer, create employment and build a stronger economy.',
+      'Our responsibility is to ensure that more of that opportunity is preserved and translated into lasting value.',
+    ],
+  },
+  cta: {
+    title: "Let's Build a Better Agricultural Future Together.",
+    primary: { label: 'Explore Our Services', route: '/services' as Route },
+    secondary: { label: 'Contact Us', route: '/contact' as Route },
+  },
+}
+
+/** Placeholder sub pages: what PageHero shows until each page is built. */
+export const subPages: Record<string, { title: string; subtitle: string }> = {
+  '/about': { title: 'About Us', subtitle: 'Who we are, what we believe and where we are headed.' },
+  '/services': { title: 'Our Services', subtitle: 'Processing, preservation, livestock and security across the value chain.' },
+  '/services/cassava-processing': { title: 'Cassava Processing', subtitle: 'Garri and cassava flour from locally sourced cassava.' },
+  '/services/meat-livestock-processing': { title: 'Meat & Livestock Processing', subtitle: 'Poultry and livestock products, handled hygienically.' },
+  '/services/food-preservation-canning': { title: 'Food Preservation & Canning', subtitle: 'Extending the shelf life of perishable produce.' },
+  '/services/agricultural-produce-processing': { title: 'Agricultural Produce Processing', subtitle: 'Turning raw produce into market-ready products.' },
+  '/services/dog-breeding': { title: 'Premium Security Dog Breeding', subtitle: 'Documented working breeds for farm, estate and property security.' },
+  '/marketplace': { title: 'Agricultural Marketplace', subtitle: 'Connecting farmers directly to markets. Coming soon.' },
+  '/locations': { title: 'Our Locations', subtitle: 'Where we operate today and where we are going next.' },
+  '/partnerships': { title: 'Partnerships', subtitle: 'Build sustainable agricultural value chains with us.' },
+  '/contact': { title: 'Contact Us', subtitle: 'Enquiries, quotes and partnerships. We are here to help.' },
+}
