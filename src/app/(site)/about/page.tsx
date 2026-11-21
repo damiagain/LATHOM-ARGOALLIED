@@ -1,4 +1,5 @@
 import React from 'react'
+import type { Metadata } from 'next'
 import { Wheat, Lightbulb, BadgeCheck, Leaf, HandHeart } from 'lucide-react'
 
 import { PageHero } from '@/components/PageHero'
@@ -9,6 +10,11 @@ import { Photo } from '@/components/Photo'
 import { Reveal } from '@/components/Reveal'
 import { images, imageAlt } from '@/content/images'
 import { about } from '@/content/content'
+
+export const metadata: Metadata = {
+  title: 'About Us',
+  description: about.hero.subtitle,
+}
 
 const VALUE_ICONS = { security: Wheat, innovation: Lightbulb, quality: BadgeCheck, sustain: Leaf, empower: HandHeart }
 
