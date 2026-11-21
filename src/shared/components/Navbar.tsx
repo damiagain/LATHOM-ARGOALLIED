@@ -176,7 +176,7 @@ function ServicesDropdown({
   const wrapRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const itemRefs = useRef<(HTMLAnchorElement | null)[]>([])
-  const closeTimer = useRef<number>()
+  const closeTimer = useRef<number | undefined>(undefined)
   const panelId = useId()
   const reduce = useReducedMotion()
 
