@@ -410,3 +410,263 @@ export const subPages: Record<string, { title: string; subtitle: string; intro?:
       'Have questions about supply contracts, custom processing, livestock availability, or partnership opportunities? Reach out directly to our team.',
   },
 }
+
+
+// ─── TASK 2: SERVICES SECTION CONTENT ────────────────────────────────────────
+
+export type ServiceIconCard = {
+  /** Lucide icon name as a string – resolved in ServicePage */
+  icon: string
+  title: string
+}
+
+export type ProcessStep = {
+  icon: string
+  title: string
+  body: string
+}
+
+export type BreedCard = {
+  name: string
+  body: string
+  image: string
+  alt: string
+}
+
+export type ServicePageData = {
+  slug: string
+  title: string
+  tagline: string
+  heroImage: string
+  heroImageAlt: string
+  heroCtaPrimary: { label: string; scrollTo: string }
+  heroCtaSecondary?: { label: string; scrollTo: string }
+  overviewHeading?: string
+  overviewParagraphs: string[]
+  iconCardsHeading: string
+  iconCards: ServiceIconCard[]
+  objectiveCallout: string
+  processBlockIntro?: string
+  processSteps?: ProcessStep[]
+  breedCards?: BreedCard[]
+  breedingPhilosophyChecklist?: string[]
+  closingCallout?: string[]
+  enquiryNature: string
+}
+
+/** Full content for all 4 individual service pages. */
+export const servicePages: ServicePageData[] = [
+  // ── 1. CASSAVA PROCESSING ───────────────────────────────────────────────
+  {
+    slug: 'cassava-processing',
+    title: 'Cassava Processing',
+    tagline: "Turning Africa's Staple Crop into Quality Food Products.",
+    heroImage: '/images/services-cassava.jpg',
+    heroImageAlt: 'Peeled cassava roots being washed in a steel trough',
+    heroCtaPrimary: { label: 'Enquire About Our Cassava Products', scrollTo: '#enquiry' },
+    overviewParagraphs: [
+      "Cassava is one of Africa's most important food crops. At Lathom, we focus on transforming this versatile crop into quality food products that are convenient, accessible and suitable for different consumer needs.",
+    ],
+    iconCardsHeading: 'Our current product categories include',
+    iconCards: [
+      { icon: 'Wheat', title: 'Garri Processing' },
+      { icon: 'Package', title: 'Cassava Flour Production' },
+      { icon: 'PackageCheck', title: 'Processing and Packaging of Cassava-Based Products' },
+    ],
+    objectiveCallout:
+      'Our objective is to add value to locally sourced cassava, support agricultural producers and improve access to staple food products.',
+    enquiryNature: 'Cassava Processing',
+  },
+
+  // ── 2. MEAT & LIVESTOCK PROCESSING ─────────────────────────────────────
+  {
+    slug: 'meat-livestock-processing',
+    title: 'Meat & Livestock Processing',
+    tagline: 'Quality Meat Processing. Better Food Preservation.',
+    heroImage: '/images/services-meat.jpg',
+    heroImageAlt: 'A worker in protective clothing trimming poultry in a clean processing room',
+    heroCtaPrimary: { label: 'Request a Product Enquiry', scrollTo: '#enquiry' },
+    overviewParagraphs: [
+      'We process poultry and livestock produce to support the availability of quality meat products for households, retailers, food businesses and bulk buyers.',
+    ],
+    iconCardsHeading: 'Our product categories include',
+    iconCards: [
+      { icon: 'Bird', title: 'Chicken' },
+      { icon: 'Feather', title: 'Guinea Fowl' },
+      { icon: 'Ham', title: 'Pork' },
+      { icon: 'Beef', title: 'Goat Meat' },
+      { icon: 'Beef', title: 'Beef' },
+    ],
+    processBlockIntro:
+      'Our processing operations are focused on hygienic handling, appropriate processing methods, packaging and preservation.',
+    processSteps: [
+      { icon: 'ShieldCheck', title: 'Hygienic Handling', body: 'Careful, hygienic handling of poultry and livestock produce.' },
+      { icon: 'Settings2', title: 'Processing', body: 'Appropriate processing methods.' },
+      { icon: 'Box', title: 'Packaging', body: 'Packaging for quality products.' },
+      { icon: 'Thermometer', title: 'Preservation', body: 'Preservation to support product quality.' },
+    ],
+    objectiveCallout:
+      'We aim to make quality animal protein more accessible while creating additional value for livestock farmers.',
+    enquiryNature: 'Meat & Livestock Products',
+  },
+
+  // ── 3. FOOD PRESERVATION & CANNING ─────────────────────────────────────
+  {
+    slug: 'food-preservation-canning',
+    title: 'Food Preservation & Canning',
+    tagline: "Preserving Today's Harvest for Tomorrow's Consumption.",
+    heroImage: '/images/services-canning.jpg',
+    heroImageAlt: 'Sealed jars and cans of sweet corn and pepper on a production line',
+    heroCtaPrimary: { label: 'Partner With Our Processing Team', scrollTo: '#enquiry' },
+    overviewParagraphs: [
+      'One of the biggest challenges facing African agriculture is the loss of perishable produce due to limited preservation and processing infrastructure.',
+      'At Lathom, we are working to address this challenge by exploring and developing food preservation solutions that extend product shelf life and improve availability beyond the harvesting season.',
+    ],
+    iconCardsHeading: 'Our areas of focus include',
+    iconCards: [
+      { icon: 'Wheat', title: 'Sweet Corn Processing and Canning' },
+      { icon: 'Flame', title: 'Pepper Processing and Preservation' },
+      { icon: 'Apple', title: 'Preservation of Selected Fruits and Vegetables' },
+      { icon: 'PackageCheck', title: 'Packaging of Processed Agricultural Produce' },
+      { icon: 'Plus', title: 'Other Value-Added Agricultural Products' },
+    ],
+    objectiveCallout:
+      'We aim to reduce post-harvest losses and ensure that seasonal agricultural abundance can serve consumers for longer.',
+    enquiryNature: 'Food Preservation',
+  },
+
+  // ── 4. PREMIUM SECURITY DOG BREEDING ───────────────────────────────────
+  {
+    slug: 'dog-breeding',
+    title: 'Premium Security Dog Breeding',
+    tagline: 'Protecting Farms. Securing Agricultural Investments.',
+    heroImage: '/images/services-dogs.jpg',
+    heroImageAlt: 'A handler seated between a Boerboel and a German Shepherd on an estate',
+    heroCtaPrimary: { label: 'Explore Our Breeds', scrollTo: '#breeds' },
+    heroCtaSecondary: { label: 'Enquire About Available Puppies', scrollTo: '#enquiry' },
+    overviewParagraphs: [
+      'Agricultural investments require protection. Farms, livestock facilities, warehouses and rural properties often face security challenges that can threaten productivity and investments.',
+      'At Lathom, we operate a dedicated dog breeding programme focused on quality, pedigree documentation, sound temperament and responsible breeding.',
+    ],
+    iconCardsHeading: 'Our breeding programme includes',
+    iconCards: [
+      { icon: 'Shield', title: 'Boerboel' },
+      { icon: 'Shield', title: 'German Shepherd' },
+      { icon: 'Shield', title: 'Belgian Malinois' },
+      { icon: 'Shield', title: 'Caucasian Shepherd' },
+    ],
+    breedCards: [
+      {
+        name: 'Boerboel',
+        body: 'A powerful South African mastiff breed known for its protective instincts, strength and loyalty.',
+        image: '/images/dogs-boerboel.jpg',
+        alt: 'A Boerboel dog standing on a farm',
+      },
+      {
+        name: 'German Shepherd (GSD)',
+        body: 'An intelligent, versatile and trainable working breed suitable for property protection and various security roles.',
+        image: '/images/dogs-german-shepherd.jpg',
+        alt: 'A German Shepherd dog in a working dog pose',
+      },
+      {
+        name: 'Belgian Malinois',
+        body: 'An athletic, highly driven and intelligent working breed known for its suitability for professional working-dog activities.',
+        image: '/images/dogs-belgian-malinois.jpg',
+        alt: 'A Belgian Malinois dog in an alert stance',
+      },
+      {
+        name: 'Caucasian Shepherd',
+        body: 'A large livestock guardian breed traditionally used to protect livestock and property.',
+        image: '/images/dogs-caucasian-shepherd.jpg',
+        alt: 'A Caucasian Shepherd dog standing guard',
+      },
+    ],
+    breedingPhilosophyChecklist: [
+      'Documented pedigree and lineage',
+      'Quality breeding stock',
+      'Health and veterinary care',
+      'Temperament and behavioural suitability',
+      'Responsible breeding practices',
+      'Proper puppy socialisation',
+    ],
+    closingCallout: [
+      'Our objective is to provide farmers, estate owners and individuals with quality dogs suited to their security needs.',
+      'We also intend to provide guidance to prospective owners on responsible dog ownership, training and breed suitability.',
+    ],
+    objectiveCallout:
+      'Our objective is to provide farmers, estate owners and individuals with quality dogs suited to their security needs.',
+    enquiryNature: 'Dog Breeding',
+  },
+]
+
+// ── /services OVERVIEW PAGE ────────────────────────────────────────────────
+
+export const servicesOverview = {
+  hero: {
+    title: 'Our Services',
+    subtitle: 'Adding value across the agricultural value chain.',
+    ctaPrimary: { label: 'Request a Quote', route: '/contact' as Route },
+    ctaSecondary: { label: 'Partner With Us', route: '/partnerships' as Route },
+  },
+  intro: {
+    heading: 'What We Do',
+    body: 'Our operations span multiple areas of the agricultural value chain, from processing and preservation to livestock products and agricultural commerce.',
+  },
+  sections: [
+    {
+      number: '01',
+      title: 'Cassava Processing',
+      tagline: "Turning Africa's Staple Crop into Quality Food Products.",
+      description:
+        'We transform locally sourced cassava into quality food products. Our focus is on convenient, accessible staples such as garri and cassava flour.',
+      chips: ['Garri', 'Cassava Flour', 'Packaged Cassava Products'],
+      image: '/images/services-cassava.jpg',
+      alt: 'Peeled cassava roots being washed in a steel trough',
+      route: '/services/cassava-processing' as Route,
+    },
+    {
+      number: '02',
+      title: 'Meat & Livestock Processing',
+      tagline: 'Quality Meat Processing. Better Food Preservation.',
+      description:
+        'We process poultry and livestock produce for households, retailers, food businesses and bulk buyers. Our focus is hygienic handling, packaging and preservation.',
+      chips: ['Chicken', 'Guinea Fowl', 'Pork', 'Goat Meat', 'Beef'],
+      image: '/images/services-meat.jpg',
+      alt: 'A worker in protective clothing trimming poultry in a clean processing room',
+      route: '/services/meat-livestock-processing' as Route,
+    },
+    {
+      number: '03',
+      title: 'Food Preservation & Canning',
+      tagline: "Preserving Today's Harvest for Tomorrow's Consumption.",
+      description:
+        'We are developing preservation solutions that extend shelf life and reduce post-harvest losses. This helps seasonal produce serve consumers for longer.',
+      chips: ['Sweet Corn', 'Pepper', 'Fruits and Vegetables'],
+      image: '/images/services-canning.jpg',
+      alt: 'Sealed jars and cans of sweet corn and pepper on a production line',
+      route: '/services/food-preservation-canning' as Route,
+    },
+    {
+      number: '04',
+      title: 'Premium Security Dog Breeding',
+      tagline: 'Protecting Farms. Securing Agricultural Investments.',
+      description:
+        'A dedicated breeding programme focused on pedigree documentation, sound temperament and responsible breeding.',
+      chips: ['Boerboel', 'German Shepherd', 'Belgian Malinois', 'Caucasian Shepherd'],
+      image: '/images/services-dogs.jpg',
+      alt: 'A handler seated between a Boerboel and a German Shepherd on an estate',
+      route: '/services/dog-breeding' as Route,
+    },
+  ],
+  marketplaceBanner: {
+    badge: 'Coming Soon',
+    title: 'Agricultural Marketplace',
+    subtitle: 'Connecting Farmers Directly to Markets.',
+    route: '/marketplace' as Route,
+  },
+  closingCta: {
+    headline: "Let's Build a Better Agricultural Future Together.",
+    primary: { label: 'Request a Quote', route: '/contact' as Route },
+    secondary: { label: 'Partner With Us', route: '/partnerships' as Route },
+  },
+}

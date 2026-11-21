@@ -12,12 +12,13 @@ export const images = {
   heroHome: '/images/home-hero.jpg',
   /** Home introduction: cassava roots being inspected. */
   introHome: '/images/home-intro.jpg',
+
   about: {
     /** About hero: loading processed produce at a processing yard, golden hour. */
     hero: '/images/about-hero.jpg',
     /** Who We Are: a farmer delivering cassava to a processing centre. */
     who: '/images/about-who.jpg',
-    /** Philosophy band: farmer\'s hands holding fresh cassava. */
+    /** Philosophy band: farmer's hands holding fresh cassava. */
     philosophy: '/images/about-philosophy.jpg',
   },
 
@@ -30,6 +31,16 @@ export const images = {
     canning: '/images/services-canning.jpg',
     dogs: '/images/services-dogs.jpg',
     marketplace: '/images/services-marketplace.jpg',
+  },
+
+  /**
+   * Breed dog photos. Swap these local files when real breed photography is available.
+   */
+  breeds: {
+    boerboel: '/images/dogs-boerboel.jpg',
+    germanShepherd: '/images/dogs-german-shepherd.jpg',
+    belgianMalinois: '/images/dogs-belgian-malinois.jpg',
+    caucasianShepherd: '/images/dogs-caucasian-shepherd.jpg',
   },
 
   products: {
@@ -53,5 +64,9 @@ export const imageAlt = {
   pageHeroDefault: 'A worker walking between stacked sacks of processed produce in a warehouse',
   aboutHero: 'Workers loading sacks of processed produce onto a truck at a processing yard at golden hour',
   aboutWho: 'A farmer handing a basket of fresh cassava to a smiling worker at a processing centre',
-  aboutPhilosophy: 'A farmer’s hands holding freshly harvested cassava roots and leaves',
+  aboutPhilosophy: "A farmer's hands holding freshly harvested cassava roots and leaves",
+  breedBoerboel: 'A Boerboel dog standing on a farm',
+  breedGermanShepherd: 'A German Shepherd dog in a working dog pose',
+  breedBelgianMalinois: 'A Belgian Malinois dog in an alert stance',
+  breedCaucasianShepherd: 'A Caucasian Shepherd dog standing guard',
 } as const
