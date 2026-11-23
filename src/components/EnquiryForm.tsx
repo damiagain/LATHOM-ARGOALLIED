@@ -28,6 +28,16 @@ export function EnquiryForm({
   const [errors, setErrors] = useState<Errors>({})
   const [status, setStatus] = useState<EnquiryState>(initialState)
 
+  React.useEffect(() => {
+    if (prefill) {
+      setValues((v) => ({
+        ...v,
+        nature: prefill.nature || v.nature,
+        message: prefill.message || v.message,
+      }))
+    }
+  }, [prefill?.nature, prefill?.message])
+
   const set = (k: keyof Values) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setValues((v) => ({ ...v, [k]: e.target.value }))
     if (errors[k]) setErrors((errs) => ({ ...errs, [k]: undefined }))

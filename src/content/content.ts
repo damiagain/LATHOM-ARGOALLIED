@@ -17,6 +17,7 @@ export type Route =
   | '/locations'
   | '/partnerships'
   | '/contact'
+  | '/contact?enquiry=quote'
 
 export type ServiceIcon = 'cassava' | 'meat' | 'canning' | 'dog' | 'market'
 
@@ -28,9 +29,10 @@ export const brand = {
 
 /** Contact and social details. */
 export const contact = {
-  phone: '+234 800 000 0000',
-  whatsappNumber: '2348000000000',
-  email: 'info@lathomagroallied.com',
+  phone: '[Insert official business phone number]',
+  whatsappNumber: '[Insert official business WhatsApp number]',
+  email: '[Insert official business email address]',
+  website: '[Insert official business website URL]',
   social: {
     instagram: '#instagram',
     facebook: '#facebook',
@@ -56,7 +58,7 @@ export const nav = {
     { label: 'Our Locations', route: '/locations' as Route },
     { label: 'Contact Us', route: '/contact' as Route },
   ],
-  quote: { label: 'Get a Quote', route: '/contact' as Route },
+  quote: { label: 'Get a Quote', route: '/contact?enquiry=quote' as Route },
   marketplacePill: { label: 'Our Marketplace', route: '/marketplace' as Route },
 }
 
@@ -667,4 +669,170 @@ export const servicesOverview = {
     primary: { label: 'Request a Quote', route: '/contact' as Route },
     secondary: { label: 'Partner With Us', route: '/partnerships' as Route },
   },
+}
+
+
+// ─── TASK 3: REMAINING 4 PAGES CONTENT ───────────────────────────────────────
+
+export const marketplacePageData = {
+  hero: {
+    title: 'Agricultural Marketplace',
+    badge: 'Coming Soon',
+    subtitle: 'Connecting Farmers Directly to Markets.',
+    cta: 'Register Your Interest',
+  },
+  subheading: 'A Better Way to Buy and Sell Agricultural Produce.',
+  introParagraphs: [
+    'We believe farmers deserve better access to markets, while communities and bulk purchasers deserve access to quality agricultural produce at competitive prices.',
+    'To address this, Lathom Agroallied Limited is developing a digital agricultural marketplace designed to connect farmers directly with buyers.',
+    'Our platform will make it easier for communities, retailers, restaurants, distributors and other bulk purchasers to source agricultural products directly from farmers and producers.',
+  ],
+  howItWorksHeading: 'How It Will Work',
+  howItWorksSteps: [
+    {
+      number: '01',
+      title: 'Farmers List Their Produce',
+      body: 'Farmers will be able to showcase available agricultural products, quantities, locations and indicative prices.',
+      icon: 'list',
+    },
+    {
+      number: '02',
+      title: 'Buyers Place Orders',
+      body: 'Communities, businesses and bulk purchasers will be able to identify available products and submit purchase requests.',
+      icon: 'cart',
+    },
+    {
+      number: '03',
+      title: 'Direct Farmer-to-Buyer Connection',
+      body: 'The platform will facilitate connections between farmers and buyers, helping reduce unnecessary intermediaries.',
+      icon: 'link',
+    },
+    {
+      number: '04',
+      title: 'Order Coordination',
+      body: 'The marketplace will support order coordination and help buyers and sellers agree on fulfilment and delivery arrangements.',
+      icon: 'truck',
+    },
+  ],
+  whoCanUseHeading: 'Who Can Use the Marketplace?',
+  whoCanUseItems: [
+    { title: 'Agricultural farmers', icon: 'Wheat' },
+    { title: 'Community associations', icon: 'Users' },
+    { title: 'Food retailers', icon: 'Store' },
+    { title: 'Restaurants and hospitality businesses', icon: 'Utensils' },
+    { title: 'Food processors', icon: 'Factory' },
+    { title: 'Distributors and wholesalers', icon: 'Truck' },
+    { title: 'Bulk food purchasers', icon: 'Boxes' },
+  ],
+  goalHeading: 'Our Goal',
+  goalCallout:
+    'To create a more transparent and efficient agricultural trading ecosystem where farmers have better market access and buyers can source produce more conveniently.',
+  closingBand: {
+    badge: 'Coming Soon!',
+    title: 'Interested in becoming a farmer, supplier or bulk buyer on our platform?',
+    cta: 'Register Your Interest',
+  },
+}
+
+export const locationsPageData = {
+  hero: {
+    title: 'Our Locations',
+    subtitle: 'Building From Nigeria, Growing Across Africa.',
+    cta: { label: 'Contact Our Team', route: '/contact' as Route },
+  },
+  intro: 'Lathom Agroallied Limited currently operates from two locations in Nigeria:',
+  locations: [
+    {
+      name: 'Ikorodu, Lagos State',
+      description: 'Our operational base supporting our agricultural and processing activities.',
+      image: '/images/services-cassava.jpg',
+      alt: 'Lathom agricultural and processing operational base in Ikorodu, Lagos State',
+    },
+    {
+      name: 'Igbo-Etche',
+      description: 'Our additional operational location supporting our agricultural activities.',
+      image: '/images/about-who.jpg',
+      alt: 'Lathom operational location in Igbo-Etche',
+    },
+  ],
+  closing:
+    'We are building a network of agricultural operations that brings us closer to farmers, suppliers and the communities we serve.',
+  ctaBand: {
+    title: 'Connect With Our Operational Hubs',
+    cta: { label: 'Contact Our Team', route: '/contact' as Route },
+  },
+}
+
+export const partnershipsPageData = {
+  hero: {
+    title: 'Partnerships',
+    subtitle: "Let's Build a Better Agricultural Future Together.",
+    cta: { label: 'Become a Partner', scrollTo: '#enquiry' },
+  },
+  intro:
+    'We welcome partnerships with individuals, organisations and businesses interested in building sustainable agricultural value chains.',
+  heading: 'We are particularly interested in working with',
+  partners: [
+    { title: 'Crop farmers and agricultural cooperatives', icon: 'Wheat' },
+    { title: 'Livestock and poultry farmers', icon: 'Bird' },
+    { title: 'Agricultural produce suppliers', icon: 'Truck' },
+    { title: 'Food distributors and wholesalers', icon: 'Boxes' },
+    { title: 'Retailers and supermarkets', icon: 'Store' },
+    { title: 'Food processing companies', icon: 'Factory' },
+    { title: 'Agricultural investors and development organisations', icon: 'TrendingUp' },
+    { title: 'Community associations and bulk purchasers', icon: 'Users' },
+  ],
+  closing:
+    'Whether you are looking to supply agricultural produce, purchase processed products, collaborate on food preservation or explore investment opportunities, we would love to hear from you.',
+}
+
+export const contactPageData = {
+  hero: {
+    title: 'Contact Us',
+    subtitle: "Let's Talk Agriculture.",
+  },
+  intro:
+    'Whether you are a farmer, distributor, prospective customer, investor or business partner, our team is available to discuss opportunities for collaboration.',
+  company: {
+    name: 'Lathom Agroallied Limited',
+    locations: [
+      'Ikorodu, Lagos State, Nigeria',
+      'Igbo-Etche (state to be confirmed)',
+    ],
+  },
+  faqHeading: 'Frequently Asked Questions',
+  faqs: [
+    {
+      q: 'What does Lathom Agroallied Limited do?',
+      a: 'We are an agribusiness company involved in agricultural processing, food preservation, livestock products, premium dog breeding and the development of an agricultural marketplace.',
+    },
+    {
+      q: 'What agricultural products do you process?',
+      a: 'Our current areas of focus include cassava products such as garri and cassava flour, poultry and livestock products, sweet corn, pepper and other agricultural produce.',
+    },
+    {
+      q: 'Do you process meat products?',
+      a: 'Yes. Our livestock processing categories include chicken, guinea fowl, pork, goat meat and beef.',
+    },
+    {
+      q: 'What dog breeds do you specialise in?',
+      a: 'Our breeding programme includes Boerboel, German Shepherd, Belgian Malinois and Caucasian Shepherd breeds.',
+    },
+    {
+      q: 'Can farmers supply agricultural produce to Lathom?',
+      a: 'We welcome enquiries from farmers and agricultural suppliers interested in supplying produce or exploring commercial partnerships.',
+    },
+    {
+      q: 'How will the Lathom Marketplace work?',
+      a: 'Our upcoming marketplace will connect farmers directly with communities, businesses and bulk purchasers, helping improve market access and simplify agricultural sourcing.',
+    },
+    {
+      q: 'Where is Lathom located?',
+      a: 'We currently operate from Ikorodu, Lagos State and Igbo-Etche.',
+    },
+    {
+      q: 'How can I partner with Lathom?',
+      a: 'You can reach our team through the contact form, phone number or email address provided on our website.',
+    },
+  ],
 }

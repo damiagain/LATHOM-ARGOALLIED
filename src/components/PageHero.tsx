@@ -7,7 +7,7 @@ import { Photo } from './Photo'
 import { images, imageAlt } from '@/content/images'
 import type { Route } from '@/content/content'
 
-type Cta = { label: string; route: Route }
+type Cta = { label: string; route?: Route; onClick?: () => void }
 
 /**
  * Hero for every sub page: photo with a forest-green overlay, breadcrumb,
@@ -16,15 +16,17 @@ type Cta = { label: string; route: Route }
 export function PageHero({
   title,
   subtitle,
+  badge,
   image = images.pageHeroDefault,
   alt = imageAlt.pageHeroDefault,
   ctas = [],
 }: {
   title: string
   subtitle?: string
+  badge?: string
   image?: string
   alt?: string
-  ctas?: [Cta] | [Cta, Cta] | Cta[]
+  ctas?: Cta[]
 }) {
   return (
     <section className="relative flex min-h-[45svh] items-end overflow-hidden bg-linear-to-b from-forest to-forest-deep lg:min-h-[56svh]">
@@ -56,7 +58,15 @@ export function PageHero({
           </ol>
         </nav>
 
-        <h1 className="mt-4 max-w-[18ch] font-heading text-[clamp(2.25rem,1.4rem+3.4vw,4rem)] font-semibold leading-[1.05] tracking-tight text-white">
+        {badge && (
+          <div className="mt-4">
+            <span className="inline-flex items-center gap-2 rounded-full bg-lime px-3 py-1 text-xs font-bold uppercase tracking-wider text-forest">
+              {badge}
+            </span>
+          </div>
+        )}
+
+        <h1 className="mt-4 max-w-[20ch] font-heading text-[clamp(2.25rem,1.4rem+3.4vw,4rem)] font-semibold leading-[1.05] tracking-tight text-white">
           {title}
         </h1>
 
@@ -69,12 +79,12 @@ export function PageHero({
         {ctas.length > 0 && (
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             {ctas[0] && (
-              <Button href={ctas[0].route} variant="lime" icon>
+              <Button href={ctas[0].route} onClick={ctas[0].onClick} variant="lime" icon>
                 {ctas[0].label}
               </Button>
             )}
             {ctas[1] && (
-              <Button href={ctas[1].route} variant="outlineLight">
+              <Button href={ctas[1].route} onClick={ctas[1].onClick} variant="outlineLight">
                 {ctas[1].label}
               </Button>
             )}

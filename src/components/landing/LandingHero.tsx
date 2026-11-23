@@ -46,7 +46,7 @@ export function LandingHero() {
         className="mt-10 flex w-full max-w-md flex-col gap-3 lg:mt-12 lg:w-auto lg:max-w-none lg:flex-row lg:items-center lg:gap-4"
       >
         <Link
-          href="/contact"
+          href="/contact?enquiry=quote"
           className="group inline-flex h-14 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-lime px-8 font-semibold text-forest shadow-[0_8px_24px_-8px_rgba(198,216,58,0.5)] transition-[background-color,transform] duration-200 ease-[var(--ease-out-strong)] hover:bg-leaf active:scale-[0.97]"
         >
           {landing.quoteCta}
