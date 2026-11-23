@@ -1,18 +1,17 @@
 'use client'
 
-import React, { useState } from 'react'
+import React from 'react'
+import Link from 'next/link'
 import { ClipboardList, ShoppingCart, Handshake, Truck } from 'lucide-react'
 
 import { Button } from '@/components/Button'
 import { Reveal } from '@/components/Reveal'
 import { home } from '@/content/content'
-import { InterestModal } from '@/components/forms/InterestModal'
 
 const STEP_ICONS = { list: ClipboardList, cart: ShoppingCart, link: Handshake, truck: Truck }
 
 export function MarketplaceTeaser() {
   const m = home.marketplace
-  const [open, setOpen] = useState(false)
 
   return (
     <section id="marketplace" className="scroll-mt-20 pb-16 md:pb-24 lg:pb-28">
@@ -20,15 +19,12 @@ export function MarketplaceTeaser() {
         <Reveal>
           <div className="grid gap-10 overflow-hidden rounded-[28px] bg-forest px-6 py-10 text-white md:px-12 md:py-14 lg:grid-cols-12 lg:gap-12 lg:px-16 lg:py-20">
             <div className="lg:col-span-6">
-              <span className="inline-flex items-center gap-2 rounded-full bg-lime px-3 py-1 text-xs font-semibold uppercase tracking-wider text-forest">
-                {m.badge}
-              </span>
-              <h2 className="mt-6 font-heading text-[clamp(1.875rem,1.3rem+2.4vw,3.25rem)] font-semibold leading-[1.06] tracking-tight">
+              <h2 className="font-heading text-[clamp(1.875rem,1.3rem+2.4vw,3.25rem)] font-semibold leading-[1.06] tracking-tight">
                 {m.title}
               </h2>
               <p className="mt-4 text-lg text-white/80 md:text-xl">{m.subtitle}</p>
               <div className="mt-8 flex flex-col sm:flex-row lg:mt-10">
-                <Button onClick={() => setOpen(true)} variant="lime" icon>
+                <Button href={m.ctaRoute} variant="lime" icon>
                   {m.cta}
                 </Button>
               </div>
@@ -57,11 +53,6 @@ export function MarketplaceTeaser() {
           </div>
         </Reveal>
       </div>
-
-      <InterestModal
-        open={open}
-        onClose={() => setOpen(false)}
-      />
     </section>
   )
 }

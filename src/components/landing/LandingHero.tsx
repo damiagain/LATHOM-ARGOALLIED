@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
 
-import { PulseDot } from '@/components/PulseDot'
 import { landing } from '@/content/content'
 
 export function LandingHero() {
@@ -58,10 +57,7 @@ export function LandingHero() {
           href="/marketplace"
           className="group inline-flex h-14 items-center justify-between gap-4 rounded-full border border-white/25 bg-white/10 pl-5 pr-2 text-white backdrop-blur-md transition-[background-color,border-color,transform] duration-200 ease-[var(--ease-out-strong)] hover:border-white/40 hover:bg-white/15 active:scale-[0.98] lg:min-w-[400px]"
         >
-          <span className="flex min-w-0 items-center gap-3">
-            <PulseDot />
-            <span className="truncate text-[15px] font-medium sm:text-base">{landing.marketplaceBanner}</span>
-          </span>
+          <span className="truncate text-[15px] font-medium sm:text-base">{landing.marketplaceBanner}</span>
           <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white/10 transition-colors duration-200 group-hover:bg-white/20">
             <ArrowUpRight className="h-[18px] w-[18px]" aria-hidden="true" />
           </span>

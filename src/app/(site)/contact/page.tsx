@@ -1,5 +1,3 @@
-import React from 'react'
-import type { Metadata } from 'next'
 
 import { PageHero } from '@/components/PageHero'
 import { EnquiryForm } from '@/components/EnquiryForm'
@@ -33,7 +31,7 @@ export default function ContactPage() {
               Get in Touch
             </h2>
             <p className="mt-4 text-base leading-relaxed text-ink/75">
-              {data.intro ?? 'Content coming soon.'}
+              {data.intro}
             </p>
           </div>
           <div className="lg:col-span-7">

@@ -52,12 +52,12 @@ export const nav = {
     { label: 'Home', route: '/home' as Route },
     { label: 'About Us', route: '/about' as Route },
     { label: 'Our Services', route: '/services' as Route, hasMenu: true },
-    { label: 'Our Marketplace', route: '/marketplace' as Route, badge: 'Soon' },
+    { label: 'Our Marketplace', route: '/marketplace' as Route },
     { label: 'Our Locations', route: '/locations' as Route },
     { label: 'Contact Us', route: '/contact' as Route },
   ],
   quote: { label: 'Get a Quote', route: '/contact' as Route },
-  marketplacePill: { label: 'Marketplace: Coming Soon', route: '/marketplace' as Route },
+  marketplacePill: { label: 'Our Marketplace', route: '/marketplace' as Route },
 }
 
 export const landing = {
@@ -65,7 +65,7 @@ export const landing = {
   headingBottom: 'Agroallied Limited',
   tagline: brand.tagline,
   quoteCta: 'Get a Quote',
-  marketplaceBanner: 'Agricultural Marketplace: Coming Soon',
+  marketplaceBanner: 'Explore Our Agricultural Marketplace',
 }
 
 export const home = {
@@ -128,7 +128,6 @@ export const home = {
       },
       {
         title: 'Agricultural Marketplace',
-        badge: 'Coming Soon',
         body: 'We are developing a digital marketplace that will connect farmers directly with communities, retailers and bulk purchasers, making it easier to source agricultural produce at competitive prices.',
         image: images.services.marketplace,
         alt: 'A farmer handing a crate of fresh produce to a buyer',
@@ -153,7 +152,6 @@ export const home = {
     ],
   },
   marketplace: {
-    badge: 'Coming Soon',
     title: 'Connecting Farmers Directly to Markets.',
     subtitle: 'A Better Way to Buy and Sell Agricultural Produce.',
     steps: [
@@ -162,7 +160,8 @@ export const home = {
       { title: 'Direct Farmer-to-Buyer Connection', icon: 'link' },
       { title: 'Order Coordination', icon: 'truck' },
     ] as { title: string; icon: 'list' | 'cart' | 'link' | 'truck' }[],
-    cta: 'Register Your Interest',
+    cta: 'Explore the Marketplace',
+    ctaRoute: '/marketplace' as Route,
     modal: {
       title: 'Register your interest',
       body: 'Be the first to know when the Lathom Agricultural Marketplace opens.',
@@ -387,7 +386,7 @@ export const subPages: Record<string, { title: string; subtitle: string; intro?:
   },
   '/marketplace': {
     title: 'Agricultural Marketplace',
-    subtitle: 'Connecting farmers directly to markets. Coming soon.',
+    subtitle: 'Connecting farmers directly to markets.',
     intro:
       'Our digital agricultural marketplace is actively under development to eliminate unnecessary intermediaries, ensuring fair returns for producers and competitive wholesale pricing for buyers.',
   },
@@ -659,7 +658,6 @@ export const servicesOverview = {
     },
   ],
   marketplaceBanner: {
-    badge: 'Coming Soon',
     title: 'Agricultural Marketplace',
     subtitle: 'Connecting Farmers Directly to Markets.',
     route: '/marketplace' as Route,

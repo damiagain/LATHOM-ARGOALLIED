@@ -7,7 +7,6 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ChevronDown, Menu, X, ArrowRight } from 'lucide-react'
 
 import { LogoMark } from './LogoMark'
-import { PulseDot } from './PulseDot'
 import { ServiceIcon } from './ServiceIcon'
 import { nav, services, type Route } from '@/content/content'
 
@@ -40,7 +39,7 @@ export function Navbar({ active: activeProp, defaultMenuOpen = false, defaultSer
       <header className="pointer-events-none fixed inset-x-0 top-5 z-40 hidden justify-center lg:flex">
         <nav
           aria-label="Main"
-          className={`pointer-events-auto flex h-16 w-[calc(100%-48px)] min-w-[960px] max-w-[1200px] items-center justify-between gap-8 rounded-full border pl-3 pr-3 backdrop-blur-xl xl:pl-4 transition-[background-color,box-shadow,border-color] duration-300 ease-[var(--ease-out-strong)] ${
+          className={`pointer-events-auto flex h-16 w-[calc(100%-48px)] max-w-[1200px] items-center justify-between gap-4 rounded-full border px-4 backdrop-blur-xl xl:gap-8 xl:px-6 transition-[background-color,box-shadow,border-color] duration-300 ease-[var(--ease-out-strong)] ${
             scrolled
               ? 'border-white/70 bg-white/95 shadow-[0_12px_32px_-12px_rgba(14,26,23,0.35)]'
               : 'border-white/60 bg-white/90 shadow-[0_8px_24px_-12px_rgba(14,26,23,0.25)]'
@@ -60,7 +59,6 @@ export function Navbar({ active: activeProp, defaultMenuOpen = false, defaultSer
                 <li key={link.route}>
                   <DesktopLink
                     label={link.label}
-                    badge={link.badge}
                     active={active === link.route}
                     href={link.route}
                   />
@@ -75,13 +73,6 @@ export function Navbar({ active: activeProp, defaultMenuOpen = false, defaultSer
               className="inline-flex h-11 items-center whitespace-nowrap rounded-full bg-lime px-5 text-sm font-semibold text-forest transition-[background-color,transform] duration-200 ease-[var(--ease-out-strong)] hover:bg-leaf active:scale-[0.97]"
             >
               {nav.quote.label}
-            </Link>
-            <Link
-              href={nav.marketplacePill.route}
-              className="hidden h-11 items-center gap-2 whitespace-nowrap rounded-full border border-forest/25 px-4 text-sm font-medium text-forest transition-[background-color,border-color,transform] duration-200 ease-[var(--ease-out-strong)] hover:border-forest/40 hover:bg-forest/5 active:scale-[0.97] min-[1280px]:inline-flex"
-            >
-              <PulseDot />
-              {nav.marketplacePill.label}
             </Link>
           </div>
         </nav>
@@ -128,12 +119,10 @@ export function Navbar({ active: activeProp, defaultMenuOpen = false, defaultSer
 
 function DesktopLink({
   label,
-  badge,
   active,
   href,
 }: {
   label: string
-  badge?: string
   active: boolean
   href: string
 }) {
@@ -146,7 +135,6 @@ function DesktopLink({
       }`}
     >
       {label}
-      {badge && <SoonBadge>{badge}</SoonBadge>}
       {active && <ActiveDot />}
     </Link>
   )
@@ -402,7 +390,6 @@ function MobileMenu({
                       className="flex min-h-16 items-center gap-3 py-3 font-heading text-[28px] font-medium"
                     >
                       {link.label}
-                      {link.badge && <SoonBadge>{link.badge}</SoonBadge>}
                       {active === link.route && <ActiveDot inline />}
                     </Link>
                   )}
@@ -423,14 +410,6 @@ function MobileMenu({
               {nav.quote.label}
               <ArrowRight className="h-5 w-5" aria-hidden="true" />
             </Link>
-            <Link
-              href={nav.marketplacePill.route}
-              onClick={onClose}
-              className="inline-flex h-14 w-full items-center justify-center gap-2.5 rounded-full border border-white/25 font-medium text-white transition-[background-color,transform] duration-200 hover:bg-white/5 active:scale-[0.97]"
-            >
-              <PulseDot />
-              {nav.marketplacePill.label}
-            </Link>
           </motion.div>
         </motion.div>
       )}
@@ -438,13 +417,6 @@ function MobileMenu({
   )
 }
 
-function SoonBadge({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="rounded-full bg-lime px-2 py-0.5 font-sans text-[11px] font-semibold uppercase leading-4 tracking-wide text-forest">
-      {children}
-    </span>
-  )
-}
 
 function ActiveDot({ inline = false }: { inline?: boolean }) {
   return inline ? (

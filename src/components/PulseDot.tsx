@@ -1,6 +1,6 @@
 import React from 'react'
 
-/** A small lime dot with a soft ring that pulses outward — the "coming soon" signal. */
+/** A small lime dot with a soft ring that pulses outward. */
 export function PulseDot({ className = '' }: { className?: string }) {
   return (
     <span className={`relative flex h-2.5 w-2.5 shrink-0 ${className}`} aria-hidden="true">

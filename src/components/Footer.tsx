@@ -48,7 +48,7 @@ export function Footer() {
               <li key={label}>
                 <a
                   href={href}
-                  aria-label={`${label} (link coming soon)`}
+                  aria-label={label}
                   className="grid h-11 w-11 place-items-center rounded-full bg-white/10 text-white transition-[background-color,color,transform] duration-200 hover:bg-lime hover:text-forest active:scale-[0.94]"
                 >
                   <Icon className="h-[18px] w-[18px]" aria-hidden="true" />

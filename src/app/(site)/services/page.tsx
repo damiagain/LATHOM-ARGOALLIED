@@ -102,17 +102,13 @@ export default function ServicesPage() {
       <section className="bg-forest py-16 md:py-24">
         <div className="mx-auto max-w-[1200px] px-5 md:px-8 text-center">
           <Reveal>
-            <span className="inline-flex items-center gap-2 rounded-full bg-lime/15 px-4 py-1.5 text-sm font-semibold text-lime">
-              <span className="h-2 w-2 rounded-full bg-lime" aria-hidden="true" />
-              {marketplaceBanner.badge}
-            </span>
-            <h2 className="mt-5 font-heading text-[clamp(1.875rem,1.4rem+2vw,3rem)] font-semibold leading-[1.08] tracking-tight text-white">
+            <h2 className="font-heading text-[clamp(1.875rem,1.4rem+2vw,3rem)] font-semibold leading-[1.08] tracking-tight text-white">
               {marketplaceBanner.title}
             </h2>
             <p className="mt-3 text-lg text-white/70">{marketplaceBanner.subtitle}</p>
             <div className="mt-8">
               <Button href={marketplaceBanner.route} variant="lime" icon>
-                Learn More
+                Agricultural Marketplace
               </Button>
             </div>
           </Reveal>
