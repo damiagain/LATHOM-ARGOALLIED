@@ -45,7 +45,7 @@ export function Navbar({ active: activeProp, defaultMenuOpen = false, defaultSer
               : 'border-white/60 bg-white/90 shadow-[0_8px_24px_-12px_rgba(14,26,23,0.25)]'
           }`}
         >
-          <Link href="/" aria-label="Lathom Agroallied — home" className="shrink-0 rounded-xl">
+          <Link href="/home" aria-label="Lathom Agroallied — home" className="shrink-0 rounded-xl">
             <LogoMark size={44} />
           </Link>
 
@@ -88,7 +88,7 @@ export function Navbar({ active: activeProp, defaultMenuOpen = false, defaultSer
           }`}
         >
           <Link
-            href="/"
+            href="/home"
             aria-label="Lathom Agroallied — home"
             className="grid h-11 min-w-11 place-items-center rounded-xl px-0.5"
           >
@@ -317,7 +317,7 @@ function MobileMenu({
           className="fixed inset-0 z-50 flex h-[100dvh] flex-col overflow-y-auto bg-forest-deep text-white lg:hidden"
         >
           <div className="flex h-16 shrink-0 items-center justify-between px-5 pt-3 md:px-8 md:pt-4">
-            <Link href="/" onClick={onClose}>
+            <Link href="/home" onClick={onClose}>
               <LogoMark size={42} withWordmark tone="light" />
             </Link>
             <button

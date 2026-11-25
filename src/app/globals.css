@@ -57,6 +57,16 @@ body {
   100% { transform: scale(2.4); opacity: 0; }
 }
 
+@keyframes arrow-nudge {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(5px); }
+}
+
+@keyframes bg-drift {
+  0% { background-position: 50% 45%; }
+  100% { background-position: 50% 55%; }
+}
+
 .animate-slow-zoom {
   animation: slow-zoom 24s ease-in-out infinite alternate;
 }
@@ -65,9 +75,19 @@ body {
   animation: soft-pulse 1.8s cubic-bezier(0.23, 1, 0.32, 1) infinite;
 }
 
+.animate-arrow-nudge {
+  animation: arrow-nudge 1.6s ease-in-out infinite;
+}
+
+.animate-bg-drift {
+  animation: bg-drift 20s ease-in-out infinite alternate;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-slow-zoom,
-  .animate-soft-pulse {
+  .animate-soft-pulse,
+  .animate-arrow-nudge,
+  .animate-bg-drift {
     animation: none;
   }
 }

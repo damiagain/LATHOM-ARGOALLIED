@@ -13,14 +13,14 @@ export const metadata: Metadata = {
 
 export default function LandingPage() {
   return (
-    <div className="relative flex min-h-screen flex-col overflow-hidden bg-linear-to-b from-forest via-forest-deep to-ink supports-[height:100svh]:min-h-[100svh]">
+    <div className="relative flex h-screen min-h-screen flex-col overflow-hidden bg-linear-to-b from-forest via-forest-deep to-ink supports-[height:100svh]:h-[100svh] supports-[height:100svh]:min-h-[100svh]">
       <img
         src={images.landingHero}
         alt={imageAlt.landingHero}
         className="animate-slow-zoom absolute inset-0 h-full w-full object-cover object-center"
       />
       <div
-        className="absolute inset-0 bg-linear-to-b from-forest-deep/80 via-forest/60 to-forest-deep/90"
+        className="absolute inset-0 bg-linear-to-b from-forest-deep/80 via-forest/75 to-forest-deep/85"
         aria-hidden="true"
       />
 
