@@ -1,8 +1,8 @@
 import Image from 'next/image'
 
 // Put the real pixel size of each file here
-const FULL = { src: '/images/lathom-logo.png', w: 1307, h: 891 }
-const MARK = { src: '/images/lathom-logo.png', w: 1307, h: 891 }
+const FULL = { src: '/images/lathom-logo.png', w: 1000, h: 684 }
+const MARK = { src: '/images/lathom-mark.png', w: 600, h: 600 }
 
 export function LogoMark({
   size = 40,

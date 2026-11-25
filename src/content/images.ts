@@ -7,11 +7,7 @@ export const images = {
 
   /** Landing page background: golden-hour farmland. */
   landingHero: '/images/landing-hero.jpg',
-
-  /** Headline fill textures for landing page */
-  titleCattle: '/images/title-cattle.jpg',
-  titleCassava: '/images/title-cassava.jpg',
-  titleMaize: '/images/title-maize.jpg',
+  landingPoster: '/images/landing-poster.jpg',
 
   /** Home hero: garri being roasted in a processing facility. */
   heroHome: '/images/home-hero.jpg',

@@ -16,9 +16,15 @@ type NavbarProps = {
   active?: Route
   defaultMenuOpen?: boolean
   defaultServicesOpen?: boolean
+  hideQuote?: boolean
 }
 
-export function Navbar({ active: activeProp, defaultMenuOpen = false, defaultServicesOpen = false }: NavbarProps = {}) {
+export function Navbar({
+  active: activeProp,
+  defaultMenuOpen = false,
+  defaultServicesOpen = false,
+  hideQuote = false,
+}: NavbarProps = {}) {
   const pathname = usePathname()
   const active = activeProp ?? (pathname as Route)
   const [scrolled, setScrolled] = useState(false)
@@ -67,14 +73,16 @@ export function Navbar({ active: activeProp, defaultMenuOpen = false, defaultSer
             )}
           </ul>
 
-          <div className="flex shrink-0 items-center gap-2">
-            <Link
-              href={nav.quote.route}
-              className="inline-flex h-11 items-center whitespace-nowrap rounded-full bg-lime px-5 text-sm font-semibold text-forest transition-[background-color,transform] duration-200 ease-[var(--ease-out-strong)] hover:bg-leaf active:scale-[0.97]"
-            >
-              {nav.quote.label}
-            </Link>
-          </div>
+          {!hideQuote && (
+            <div className="flex shrink-0 items-center gap-2">
+              <Link
+                href={nav.quote.route}
+                className="inline-flex h-11 items-center whitespace-nowrap rounded-full bg-lime px-5 text-sm font-semibold text-forest transition-[background-color,transform] duration-200 ease-[var(--ease-out-strong)] hover:bg-leaf active:scale-[0.97]"
+              >
+                {nav.quote.label}
+              </Link>
+            </div>
+          )}
         </nav>
       </header>
 
@@ -112,6 +120,7 @@ export function Navbar({ active: activeProp, defaultMenuOpen = false, defaultSer
         onClose={() => setMenuOpen(false)}
         active={active}
         defaultServicesOpen={defaultServicesOpen}
+        hideQuote={hideQuote}
       />
     </>
   )
@@ -267,11 +276,13 @@ function MobileMenu({
   open,
   onClose,
   active,
+  hideQuote = false,
 }: {
   open: boolean
   onClose: () => void
   active: Route
   defaultServicesOpen: boolean
+  hideQuote?: boolean
 }) {
   const [servicesOpen, setServicesOpen] = useState(defaultServicesOpen)
   useEffect(() => setServicesOpen(defaultServicesOpen), [defaultServicesOpen])
@@ -398,19 +409,21 @@ function MobileMenu({
             </ul>
           </nav>
 
-          <motion.div
-            {...item(nav.links.length)}
-            className="mx-auto flex w-full max-w-xl shrink-0 flex-col gap-3 px-5 pb-8 pt-10 md:px-8"
-          >
-            <Link
-              href={nav.quote.route}
-              onClick={onClose}
-              className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-full bg-lime font-semibold text-forest transition-[background-color,transform] duration-200 hover:bg-leaf active:scale-[0.97]"
+          {!hideQuote && (
+            <motion.div
+              {...item(nav.links.length)}
+              className="mx-auto flex w-full max-w-xl shrink-0 flex-col gap-3 px-5 pb-8 pt-10 md:px-8"
             >
-              {nav.quote.label}
-              <ArrowRight className="h-5 w-5" aria-hidden="true" />
-            </Link>
-          </motion.div>
+              <Link
+                href={nav.quote.route}
+                onClick={onClose}
+                className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-full bg-lime font-semibold text-forest transition-[background-color,transform] duration-200 hover:bg-leaf active:scale-[0.97]"
+              >
+                {nav.quote.label}
+                <ArrowRight className="h-5 w-5" aria-hidden="true" />
+              </Link>
+            </motion.div>
+          )}
         </motion.div>
       )}
     </AnimatePresence>
