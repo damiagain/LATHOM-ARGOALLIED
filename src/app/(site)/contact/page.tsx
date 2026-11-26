@@ -152,7 +152,11 @@ export default function ContactPage() {
                         <Phone className="h-4 w-4" aria-hidden="true" />
                         <span className="sr-only">Phone:</span>
                       </dt>
-                      <dd className="break-all pt-1 font-medium text-ink/85">{contact.phone}</dd>
+                      <dd className="break-all pt-1 font-medium text-ink/85">
+                        <a href={contact.phoneLink} className="transition-colors hover:text-forest">
+                          {contact.phone}
+                        </a>
+                      </dd>
                     </div>
 
                     <div className="flex items-start gap-3">
@@ -160,7 +164,16 @@ export default function ContactPage() {
                         <MessageCircle className="h-4 w-4" aria-hidden="true" />
                         <span className="sr-only">WhatsApp:</span>
                       </dt>
-                      <dd className="break-all pt-1 font-medium text-ink/85">{contact.whatsappNumber}</dd>
+                      <dd className="break-all pt-1 font-medium text-ink/85">
+                        <a
+                          href={contact.whatsappLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="transition-colors hover:text-forest"
+                        >
+                          {contact.phone}
+                        </a>
+                      </dd>
                     </div>
 
                     <div className="flex items-start gap-3">
@@ -168,16 +181,31 @@ export default function ContactPage() {
                         <Mail className="h-4 w-4" aria-hidden="true" />
                         <span className="sr-only">Email:</span>
                       </dt>
-                      <dd className="break-all pt-1 font-medium text-ink/85">{contact.email}</dd>
+                      <dd className="break-all pt-1 font-medium text-ink/85">
+                        <a href={contact.emailLink} className="transition-colors hover:text-forest">
+                          {contact.email}
+                        </a>
+                      </dd>
                     </div>
 
-                    <div className="flex items-start gap-3">
-                      <dt className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-forest/5 text-forest">
-                        <Globe className="h-4 w-4" aria-hidden="true" />
-                        <span className="sr-only">Website:</span>
-                      </dt>
-                      <dd className="break-all pt-1 font-medium text-ink/85">{contact.website}</dd>
-                    </div>
+                    {contact.website && contact.website.trim() !== '' && (
+                      <div className="flex items-start gap-3">
+                        <dt className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-forest/5 text-forest">
+                          <Globe className="h-4 w-4" aria-hidden="true" />
+                          <span className="sr-only">Website:</span>
+                        </dt>
+                        <dd className="break-all pt-1 font-medium text-ink/85">
+                          <a
+                            href={contact.websiteLink || contact.website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="transition-colors hover:text-forest"
+                          >
+                            {contact.website}
+                          </a>
+                        </dd>
+                      </div>
+                    )}
                   </dl>
                 </div>
               </div>

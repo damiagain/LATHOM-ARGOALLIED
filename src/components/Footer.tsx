@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import { Instagram, Facebook, Linkedin } from 'lucide-react'
+import { Instagram, Facebook, Linkedin, Phone, Mail } from 'lucide-react'
 
 import { LogoMark } from './LogoMark'
 import { contact, footer } from '@/content/content'
@@ -11,12 +11,12 @@ export function Footer() {
     { label: 'Facebook', href: contact.social.facebook, Icon: Facebook },
     { label: 'LinkedIn', href: contact.social.linkedin, Icon: Linkedin },
     { label: 'TikTok', href: contact.social.tiktok, Icon: TikTokIcon },
-  ]
+  ].filter((s) => s.href && s.href.trim() !== '' && s.href !== '#')
 
   return (
     <footer id="footer" className="bg-forest-deep text-white">
-      <div className="mx-auto grid max-w-[1200px] gap-12 px-5 pb-12 pt-16 md:grid-cols-2 md:px-8 md:pt-20 lg:grid-cols-12 lg:gap-10">
-        <div className="md:col-span-2 lg:col-span-5">
+      <div className="mx-auto grid max-w-[1200px] gap-10 px-5 pb-12 pt-16 md:grid-cols-2 md:px-8 md:pt-20 lg:grid-cols-12 lg:gap-8">
+        <div className="md:col-span-2 lg:col-span-4">
           <LogoMark size={48} tone="light" />
           <p className="mt-6 font-heading text-lg font-semibold uppercase tracking-[0.12em] [word-spacing:0.2em]">
             {footer.name}
@@ -41,22 +41,45 @@ export function Footer() {
           ))}
         </FooterColumn>
 
-        <div className="lg:col-span-2">
-          <h2 className="font-heading text-sm font-semibold uppercase tracking-wider text-white/60">Follow Us</h2>
-          <ul className="mt-5 flex gap-2">
-            {socials.map(({ label, href, Icon }) => (
-              <li key={label}>
-                <a
-                  href={href}
-                  aria-label={label}
-                  className="grid h-11 w-11 place-items-center rounded-full bg-white/10 text-white transition-[background-color,color,transform] duration-200 hover:bg-lime hover:text-forest active:scale-[0.94]"
-                >
-                  <Icon className="h-[18px] w-[18px]" aria-hidden="true" />
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <FooterColumn title="Contact" className="lg:col-span-3">
+          <li>
+            <a
+              href={contact.phoneLink}
+              className="inline-flex items-center gap-2.5 py-1 text-sm text-white/80 transition-colors duration-150 hover:text-lime"
+            >
+              <Phone className="h-4 w-4 shrink-0 text-lime" aria-hidden="true" />
+              <span>{contact.phone}</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href={contact.emailLink}
+              className="inline-flex items-center gap-2.5 py-1 text-sm text-white/80 transition-colors duration-150 hover:text-lime"
+            >
+              <Mail className="h-4 w-4 shrink-0 text-lime" aria-hidden="true" />
+              <span className="break-all">{contact.email}</span>
+            </a>
+          </li>
+        </FooterColumn>
+
+        {socials.length > 0 && (
+          <div className="md:col-span-2 lg:col-span-12">
+            <h2 className="font-heading text-sm font-semibold uppercase tracking-wider text-white/60">Follow Us</h2>
+            <ul className="mt-5 flex gap-2">
+              {socials.map(({ label, href, Icon }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    aria-label={label}
+                    className="grid h-11 w-11 place-items-center rounded-full bg-white/10 text-white transition-[background-color,color,transform] duration-200 hover:bg-lime hover:text-forest active:scale-[0.94]"
+                  >
+                    <Icon className="h-[18px] w-[18px]" aria-hidden="true" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
 
       <div className="border-t border-white/10">

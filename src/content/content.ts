@@ -29,15 +29,20 @@ export const brand = {
 
 /** Contact and social details. */
 export const contact = {
-  phone: '[Insert official business phone number]',
-  whatsappNumber: '[Insert official business WhatsApp number]',
-  email: '[Insert official business email address]',
-  website: '[Insert official business website URL]',
+  phone: '+234 906 539 2565',
+  phoneLink: 'tel:+2349065392565',
+  whatsappNumber: '2349065392565',
+  whatsappLink: 'https://wa.me/2349065392565',
+  whatsappMessage: 'Hello Lathom Agroallied, I would like to make an enquiry.',
+  email: 'lathomagroallied@gmail.com',
+  emailLink: 'mailto:lathomagroallied@gmail.com',
+  website: '',
+  websiteLink: '',
   social: {
-    instagram: '#instagram',
-    facebook: '#facebook',
-    linkedin: '#linkedin',
-    tiktok: '#tiktok',
+    instagram: '',
+    facebook: '',
+    linkedin: '',
+    tiktok: '',
   },
 }
 

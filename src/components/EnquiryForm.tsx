@@ -1,11 +1,11 @@
 'use client'
 
 import React, { useState } from 'react'
-import { CheckCircle2, Loader2 } from 'lucide-react'
+import { CheckCircle2, AlertCircle, Loader2 } from 'lucide-react'
 
 import { Button } from './Button'
 import { Field, inputClass } from './Field'
-import { enquiry } from '@/content/content'
+import { enquiry, contact } from '@/content/content'
 
 export type EnquiryState = 'idle' | 'error' | 'sending' | 'success'
 
@@ -14,7 +14,7 @@ type Errors = Partial<Record<keyof Values, string>>
 
 const EMPTY: Values = { name: '', company: '', email: '', phone: '', nature: '', message: '' }
 
-/** The enquiry form card. Validates on the client and simulates send. */
+/** The enquiry form card. Validates on the client and submits to Formspree. */
 export function EnquiryForm({
   initialState = 'idle',
   prefill,
@@ -25,6 +25,7 @@ export function EnquiryForm({
   const [values, setValues] = useState<Values>(() =>
     prefill ? { ...EMPTY, nature: prefill.nature, message: prefill.message } : EMPTY,
   )
+  const [gotcha, setGotcha] = useState('')
   const [errors, setErrors] = useState<Errors>({})
   const [status, setStatus] = useState<EnquiryState>(initialState)
 
@@ -56,13 +57,49 @@ export function EnquiryForm({
     return Object.keys(next).length === 0
   }
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!validate()) return
+
+    const endpoint = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT
+    if (!endpoint) {
+      console.warn('Formspree endpoint is not configured. Set NEXT_PUBLIC_FORMSPREE_ENDPOINT in your environment.')
+      setStatus('error')
+      return
+    }
+
     setStatus('sending')
-    setTimeout(() => {
-      setStatus('success')
-    }, 900)
+
+    try {
+      const payload = {
+        name: values.name,
+        company: values.company,
+        email: values.email,
+        phone: values.phone,
+        'nature of enquiry': values.nature,
+        message: values.message,
+        _subject: `Website enquiry: ${values.nature}`,
+        source: typeof window !== 'undefined' ? window.location.pathname : '',
+        _gotcha: gotcha,
+      }
+
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(payload),
+      })
+
+      if (res.ok) {
+        setStatus('success')
+      } else {
+        setStatus('error')
+      }
+    } catch {
+      setStatus('error')
+    }
   }
 
   const describedBy = (field: keyof Values) => (errors[field] ? `enq-${field}-error` : undefined)
@@ -91,12 +128,42 @@ export function EnquiryForm({
         </div>
       ) : (
         <form onSubmit={onSubmit} noValidate aria-label="Enquiry form">
+          {/* Honeypot field for bot protection */}
+          <input
+            type="text"
+            name="_gotcha"
+            value={gotcha}
+            onChange={(e) => setGotcha(e.target.value)}
+            style={{ display: 'none' }}
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+          />
+
           <div className="flex flex-col gap-1">
             <h3 className="font-heading text-2xl font-semibold tracking-tight text-ink md:text-[28px]">
               {enquiry.title}
             </h3>
             <p className="text-base text-ink/70">{enquiry.body}</p>
           </div>
+
+          {status === 'error' && (
+            <div className="mt-5 rounded-xl border border-error/30 bg-error/10 p-4 text-sm text-ink" role="alert">
+              <div className="flex items-start gap-2.5">
+                <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-error" aria-hidden="true" />
+                <p>
+                  Something went wrong. Please email{' '}
+                  <a href={contact.emailLink} className="font-semibold text-forest underline hover:text-ink">
+                    {contact.email}
+                  </a>{' '}
+                  or call{' '}
+                  <a href={contact.phoneLink} className="font-semibold text-forest underline hover:text-ink">
+                    {contact.phone}
+                  </a>.
+                </p>
+              </div>
+            </div>
+          )}
 
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
             <Field label="Full Name" id="enq-name" error={errors.name} className="sm:col-span-2">

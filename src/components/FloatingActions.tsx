@@ -38,7 +38,7 @@ export function FloatingActions() {
       </AnimatePresence>
 
       <a
-        href={`https://wa.me/${contact.whatsappNumber}`}
+        href={`https://wa.me/${contact.whatsappNumber}?text=${encodeURIComponent(contact.whatsappMessage)}`}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat with us on WhatsApp"

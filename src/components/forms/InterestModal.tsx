@@ -1,12 +1,12 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { CheckCircle2 } from 'lucide-react'
+import { CheckCircle2, AlertCircle, Loader2 } from 'lucide-react'
 
 import { Modal } from '@/components/Modal'
 import { Button } from '@/components/Button'
 import { Field, inputClass } from '@/components/Field'
-import { home } from '@/content/content'
+import { home, contact } from '@/content/content'
 
 type Errors = Partial<Record<'name' | 'email' | 'phone' | 'role', string>>
 
@@ -21,8 +21,9 @@ export function InterestModal({
 }) {
   const t = home.marketplace.modal
   const [values, setValues] = useState({ name: '', email: '', phone: '', role: '' })
+  const [gotcha, setGotcha] = useState('')
   const [errors, setErrors] = useState<Errors>({})
-  const [status, setStatus] = useState<'idle' | 'sending' | 'success'>(initialSuccess ? 'success' : 'idle')
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>(initialSuccess ? 'success' : 'idle')
 
   useEffect(() => {
     if (open) setStatus(initialSuccess ? 'success' : 'idle')
@@ -31,7 +32,7 @@ export function InterestModal({
   const set = (k: keyof typeof values) => (e: React.ChangeEvent<HTMLInputElement>) =>
     setValues((v) => ({ ...v, [k]: e.target.value }))
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault()
     const next: Errors = {}
     if (!values.name.trim()) next.name = 'Please enter your full name.'
@@ -40,8 +41,44 @@ export function InterestModal({
     if (!values.role) next.role = 'Please choose one.'
     setErrors(next)
     if (Object.keys(next).length) return
+
+    const endpoint = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT
+    if (!endpoint) {
+      console.warn('Formspree endpoint is not configured. Set NEXT_PUBLIC_FORMSPREE_ENDPOINT in your environment.')
+      setStatus('error')
+      return
+    }
+
     setStatus('sending')
-    setTimeout(() => setStatus('success'), 900)
+
+    try {
+      const payload = {
+        name: values.name,
+        email: values.email,
+        phone: values.phone,
+        role: values.role,
+        _subject: 'Marketplace interest',
+        source: typeof window !== 'undefined' ? window.location.pathname : '',
+        _gotcha: gotcha,
+      }
+
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(payload),
+      })
+
+      if (res.ok) {
+        setStatus('success')
+      } else {
+        setStatus('error')
+      }
+    } catch {
+      setStatus('error')
+    }
   }
 
   return (
@@ -56,7 +93,38 @@ export function InterestModal({
         </div>
       ) : (
         <form onSubmit={submit} noValidate className="flex flex-col gap-5">
+          {/* Honeypot field for bot protection */}
+          <input
+            type="text"
+            name="_gotcha"
+            value={gotcha}
+            onChange={(e) => setGotcha(e.target.value)}
+            style={{ display: 'none' }}
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+          />
+
           <p className="-mt-1 text-base leading-relaxed text-ink/70">{t.body}</p>
+
+          {status === 'error' && (
+            <div className="rounded-xl border border-error/30 bg-error/10 p-4 text-sm text-ink" role="alert">
+              <div className="flex items-start gap-2.5">
+                <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-error" aria-hidden="true" />
+                <p>
+                  Something went wrong. Please email{' '}
+                  <a href={contact.emailLink} className="font-semibold text-forest underline hover:text-ink">
+                    {contact.email}
+                  </a>{' '}
+                  or call{' '}
+                  <a href={contact.phoneLink} className="font-semibold text-forest underline hover:text-ink">
+                    {contact.phone}
+                  </a>.
+                </p>
+              </div>
+            </div>
+          )}
+
           <Field label="Full Name" id="ri-name" error={errors.name}>
             <input id="ri-name" className={inputClass(!!errors.name)} value={values.name} onChange={set('name')} autoComplete="name" />
           </Field>
@@ -91,7 +159,14 @@ export function InterestModal({
             {errors.role && <p className="mt-1.5 text-sm text-error">{errors.role}</p>}
           </fieldset>
           <Button type="submit" variant="lime" disabled={status === 'sending'} className="sm:w-full">
-            {status === 'sending' ? 'Registering\u2026' : t.submit}
+            {status === 'sending' ? (
+              <>
+                <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
+                Registering…
+              </>
+            ) : (
+              t.submit
+            )}
           </Button>
         </form>
       )}
