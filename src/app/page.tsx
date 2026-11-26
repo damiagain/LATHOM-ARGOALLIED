@@ -7,7 +7,7 @@ import { LandingBackground } from '@/components/landing/LandingBackground'
 import { brand, landing } from '@/content/content'
 
 export const metadata: Metadata = {
-  title: `${brand.name} | ${brand.tagline}`,
+  title: `Lathom Agro Allied | ${brand.tagline}`,
   description: landing.tagline,
 }
 
