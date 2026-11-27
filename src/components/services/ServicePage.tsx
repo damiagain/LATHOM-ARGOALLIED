@@ -166,7 +166,7 @@ export function ServicePage({ data }: { data: ServicePageData }) {
         </div>
       </section>
 
-      {/* ── ICON CARDS ───────────────────────────────────────────────── */}
+      {/* ── PHOTO CARDS ──────────────────────────────────────────────── */}
       <section className="bg-offwhite py-16 md:py-24">
         <div className="mx-auto max-w-[1200px] px-5 md:px-8">
           <Reveal>
@@ -174,12 +174,23 @@ export function ServicePage({ data }: { data: ServicePageData }) {
           </Reveal>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {data.iconCards.map((card, i) => (
-              <Reveal key={card.title} delay={i * 0.05}>
-                <div className="flex items-start gap-4 rounded-2xl border border-forest/10 bg-white p-6 shadow-sm">
-                  <span className="mt-0.5 grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-lime/20 text-forest">
-                    <ServiceIcon name={card.icon} className="h-5 w-5" />
-                  </span>
-                  <p className="text-base font-semibold leading-snug text-ink">{card.title}</p>
+              <Reveal key={card.title} delay={i * 0.05} className="h-full">
+                <div className="group flex h-full min-h-[96px] overflow-hidden rounded-2xl border border-forest/10 bg-white shadow-sm transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-md motion-reduce:transition-none motion-reduce:hover:translate-y-0 lg:min-h-[112px]">
+                  <div className="relative w-1/4 min-w-[84px] max-w-[160px] shrink-0 self-stretch overflow-hidden rounded-r-2xl bg-linear-to-br from-forest/15 to-forest/30">
+                    <Photo
+                      src={card.image}
+                      alt={card.alt}
+                      fallbackSrc={card.fallbackImage ?? data.overviewImage ?? images.pageHeroDefault}
+                      loading="lazy"
+                      sizes="(min-width: 1024px) 160px, 25vw"
+                      className={`h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100 ${
+                        card.imagePosition === 'center 30%' ? 'object-[center_30%]' : 'object-center'
+                      }`}
+                    />
+                  </div>
+                  <div className="flex min-w-0 flex-1 items-center px-4 py-4 md:px-5">
+                    <p className="text-base font-semibold leading-snug text-ink">{card.title}</p>
+                  </div>
                 </div>
               </Reveal>
             ))}

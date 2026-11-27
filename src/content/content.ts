@@ -450,9 +450,11 @@ export const subPages: Record<string, { title: string; subtitle: string; intro?:
 // ─── TASK 2: SERVICES SECTION CONTENT ────────────────────────────────────────
 
 export type ServiceIconCard = {
-  /** Lucide icon name as a string – resolved in ServicePage */
-  icon: string
   title: string
+  image: string
+  alt: string
+  fallbackImage?: string
+  imagePosition?: string
 }
 
 export type ProcessStep = {
@@ -508,9 +510,24 @@ export const servicePages: ServicePageData[] = [
     ],
     iconCardsHeading: 'Our current product categories include',
     iconCards: [
-      { icon: 'Wheat', title: 'Garri Processing' },
-      { icon: 'Package', title: 'Cassava Flour Production' },
-      { icon: 'PackageCheck', title: 'Processing and Packaging of Cassava-Based Products' },
+      {
+        title: 'Garri Processing',
+        image: images.cards.garri,
+        alt: imageAlt.cards.garri,
+        fallbackImage: images.services.cassava,
+      },
+      {
+        title: 'Cassava Flour Production',
+        image: images.cards['cassava-flour'],
+        alt: imageAlt.cards['cassava-flour'],
+        fallbackImage: images.services.cassava,
+      },
+      {
+        title: 'Processing and Packaging of Cassava-Based Products',
+        image: images.cards['cassava-packaging'],
+        alt: imageAlt.cards['cassava-packaging'],
+        fallbackImage: images.services.cassava,
+      },
     ],
     objectiveCallout:
       'Our objective is to add value to locally sourced cassava, support agricultural producers and improve access to staple food products.',
@@ -532,11 +549,36 @@ export const servicePages: ServicePageData[] = [
     ],
     iconCardsHeading: 'Our product categories include',
     iconCards: [
-      { icon: 'Bird', title: 'Chicken' },
-      { icon: 'Feather', title: 'Guinea Fowl' },
-      { icon: 'Ham', title: 'Pork' },
-      { icon: 'Beef', title: 'Goat Meat' },
-      { icon: 'Beef', title: 'Beef' },
+      {
+        title: 'Chicken',
+        image: images.cards.chicken,
+        alt: imageAlt.cards.chicken,
+        fallbackImage: images.services.meat,
+      },
+      {
+        title: 'Guinea Fowl',
+        image: images.cards['guinea-fowl'],
+        alt: imageAlt.cards['guinea-fowl'],
+        fallbackImage: images.services.meat,
+      },
+      {
+        title: 'Pork',
+        image: images.cards.pork,
+        alt: imageAlt.cards.pork,
+        fallbackImage: images.services.meat,
+      },
+      {
+        title: 'Goat Meat',
+        image: images.cards['goat-meat'],
+        alt: imageAlt.cards['goat-meat'],
+        fallbackImage: images.services.meat,
+      },
+      {
+        title: 'Beef',
+        image: images.cards.beef,
+        alt: imageAlt.cards.beef,
+        fallbackImage: images.services.meat,
+      },
     ],
     processBlockIntro:
       'Our processing operations are focused on hygienic handling, appropriate processing methods, packaging and preservation.',
@@ -567,11 +609,36 @@ export const servicePages: ServicePageData[] = [
     ],
     iconCardsHeading: 'Our areas of focus include',
     iconCards: [
-      { icon: 'Wheat', title: 'Sweet Corn Processing and Canning' },
-      { icon: 'Flame', title: 'Pepper Processing and Preservation' },
-      { icon: 'Apple', title: 'Preservation of Selected Fruits and Vegetables' },
-      { icon: 'PackageCheck', title: 'Packaging of Processed Agricultural Produce' },
-      { icon: 'Plus', title: 'Other Value-Added Agricultural Products' },
+      {
+        title: 'Sweet Corn Processing and Canning',
+        image: images.cards['sweet-corn'],
+        alt: imageAlt.cards['sweet-corn'],
+        fallbackImage: images.services.canning,
+      },
+      {
+        title: 'Pepper Processing and Preservation',
+        image: images.cards.pepper,
+        alt: imageAlt.cards.pepper,
+        fallbackImage: images.services.canning,
+      },
+      {
+        title: 'Preservation of Selected Fruits and Vegetables',
+        image: images.cards['fruits-vegetables'],
+        alt: imageAlt.cards['fruits-vegetables'],
+        fallbackImage: images.services.canning,
+      },
+      {
+        title: 'Packaging of Processed Agricultural Produce',
+        image: images.cards['packaging-produce'],
+        alt: imageAlt.cards['packaging-produce'],
+        fallbackImage: images.services.canning,
+      },
+      {
+        title: 'Other Value-Added Agricultural Products',
+        image: images.cards['value-added'],
+        alt: imageAlt.cards['value-added'],
+        fallbackImage: images.services.canning,
+      },
     ],
     objectiveCallout:
       'We aim to reduce post-harvest losses and ensure that seasonal agricultural abundance can serve consumers for longer.',
@@ -595,10 +662,34 @@ export const servicePages: ServicePageData[] = [
     ],
     iconCardsHeading: 'Our breeding programme includes',
     iconCards: [
-      { icon: 'Shield', title: 'Boerboel' },
-      { icon: 'Shield', title: 'German Shepherd' },
-      { icon: 'Shield', title: 'Belgian Malinois' },
-      { icon: 'Shield', title: 'Caucasian Shepherd' },
+      {
+        title: 'Boerboel',
+        image: images.cards.boerboel,
+        alt: imageAlt.cards.boerboel,
+        fallbackImage: images.services.dogs,
+        imagePosition: 'center 30%',
+      },
+      {
+        title: 'German Shepherd',
+        image: images.cards['german-shepherd'],
+        alt: imageAlt.cards['german-shepherd'],
+        fallbackImage: images.services.dogs,
+        imagePosition: 'center 30%',
+      },
+      {
+        title: 'Belgian Malinois',
+        image: images.cards['belgian-malinois'],
+        alt: imageAlt.cards['belgian-malinois'],
+        fallbackImage: images.services.dogs,
+        imagePosition: 'center 30%',
+      },
+      {
+        title: 'Caucasian Shepherd',
+        image: images.cards['caucasian-shepherd'],
+        alt: imageAlt.cards['caucasian-shepherd'],
+        fallbackImage: images.services.dogs,
+        imagePosition: 'center 30%',
+      },
     ],
     breedCards: [
       {
