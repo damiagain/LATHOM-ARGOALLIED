@@ -28,17 +28,13 @@ export function Navbar({
   const pathname = usePathname()
   const active = activeProp ?? (pathname as Route)
   const [scrolled, setScrolled] = useState(false)
-  const [mobileScrolled, setMobileScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(defaultMenuOpen)
   const [openDropdown, setOpenDropdown] = useState<'about' | 'services' | null>(null)
 
   useEffect(() => setMenuOpen(defaultMenuOpen), [defaultMenuOpen])
 
   useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 12)
-      setMobileScrolled(window.scrollY > 24)
-    }
+    const onScroll = () => setScrolled(window.scrollY > 12)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -134,40 +130,31 @@ export function Navbar({
         </nav>
       </header>
 
-      {/* Mobile + tablet: transparent at top, solid off-white bar after scroll */}
-      <header
-        className={`fixed inset-x-0 top-0 z-40 flex h-14 items-center justify-between px-4 transition-[background-color,box-shadow] duration-200 lg:hidden ${
-          mobileScrolled
-            ? 'bg-offwhite shadow-[0_1px_10px_rgba(14,26,23,0.10)]'
-            : 'bg-transparent'
-        }`}
-      >
+      {/* Mobile + tablet: non-fixed original logo at top-left, fixed solid green hamburger at top-right */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-30 flex items-start px-4 pt-3 lg:hidden">
         <Link
           href="/home"
           aria-label="Lathom Agroallied — home"
-          className={`flex h-11 min-w-11 items-center rounded-xl transition-[filter] duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 ${
-            mobileScrolled
-              ? 'focus-visible:outline-forest'
-              : 'brightness-0 invert drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)] focus-visible:outline-white'
-          }`}
+          style={{
+            filter:
+              'drop-shadow(0 0 6px rgba(255,255,255,0.9)) drop-shadow(0 0 14px rgba(255,255,255,0.6))',
+          }}
+          className="pointer-events-auto inline-flex min-h-11 min-w-11 items-center rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest"
         >
           <LogoMark size={38} />
         </Link>
-        <button
-          type="button"
-          onClick={() => setMenuOpen(true)}
-          aria-label="Open menu"
-          aria-expanded={menuOpen}
-          aria-controls="mobile-menu"
-          className={`grid h-11 w-11 place-items-center rounded-full transition-[background-color,color,box-shadow,transform] duration-200 ease-[var(--ease-out-strong)] active:scale-[0.94] focus-visible:outline-2 focus-visible:outline-offset-2 ${
-            mobileScrolled
-              ? 'bg-transparent text-forest hover:bg-forest/10 focus-visible:outline-forest'
-              : 'bg-white/15 text-white backdrop-blur-md shadow-[0_2px_10px_rgba(0,0,0,0.35)] hover:bg-white/25 focus-visible:outline-white'
-          }`}
-        >
-          <Menu className="h-5 w-5" aria-hidden="true" />
-        </button>
-      </header>
+      </div>
+
+      <button
+        type="button"
+        onClick={() => setMenuOpen(true)}
+        aria-label="Open menu"
+        aria-expanded={menuOpen}
+        aria-controls="mobile-menu"
+        className="fixed right-4 top-3 z-40 grid h-11 w-11 place-items-center rounded-full bg-[#154A3F] text-white shadow-[0_4px_14px_rgba(14,26,23,0.3)] transition-transform duration-150 ease-[var(--ease-out-strong)] active:scale-[0.94] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime lg:hidden"
+      >
+        <Menu className="h-5 w-5" aria-hidden="true" />
+      </button>
 
       <MobileMenu
         open={menuOpen}
