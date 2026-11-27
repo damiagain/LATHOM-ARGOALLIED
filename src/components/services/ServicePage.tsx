@@ -77,10 +77,12 @@ export function ServicePage({ data }: { data: ServicePageData }) {
           src={data.heroImage}
           alt={data.heroImageAlt}
           fallbackSrc={images.pageHeroDefault}
-          className="absolute inset-0 h-full w-full object-cover"
+          priority
+          sizes="100vw"
+          className="absolute inset-0 h-full w-full object-cover object-center"
         />
         <div
-          className="absolute inset-0 bg-linear-to-t from-forest-deep via-forest-deep/70 to-forest-deep/40"
+          className="absolute inset-0 bg-linear-to-t from-forest-deep via-forest-deep/75 to-forest-deep/45"
           aria-hidden="true"
         />
         <div className="relative z-10 mx-auto w-full max-w-[1200px] px-5 pb-12 pt-28 md:px-8 md:pb-16 lg:pb-20 lg:pt-36">
@@ -152,11 +154,12 @@ export function ServicePage({ data }: { data: ServicePageData }) {
           <Reveal delay={0.08}>
             <div className="overflow-hidden rounded-2xl bg-forest/10">
               <Photo
-                src={data.heroImage}
-                alt={data.heroImageAlt}
+                src={data.overviewImage ?? data.heroImage}
+                alt={data.overviewImageAlt ?? data.heroImageAlt}
                 fallbackSrc={images.pageHeroDefault}
                 loading="lazy"
-                className="aspect-[4/3] w-full object-cover"
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="aspect-[16/10] w-full object-cover object-center md:aspect-[4/3]"
               />
             </div>
           </Reveal>
@@ -246,7 +249,8 @@ export function ServicePage({ data }: { data: ServicePageData }) {
                           alt={breed.alt}
                           fallbackSrc={images.services.dogs}
                           loading="lazy"
-                          className="aspect-[4/3] w-full object-cover transition-transform duration-500 hover:scale-105"
+                          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                          className="aspect-[4/3] w-full object-cover object-[center_30%] transition-transform duration-500 hover:scale-105"
                         />
                       </div>
                       <div className="p-5">
@@ -335,16 +339,23 @@ export function ServicePage({ data }: { data: ServicePageData }) {
               <Reveal key={svc.route} delay={i * 0.06}>
                 <a
                   href={svc.route}
-                  className="group flex flex-col gap-4 overflow-hidden rounded-2xl border border-forest/10 bg-white p-6 shadow-sm transition-shadow duration-200 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest"
+                  className="group flex flex-col overflow-hidden rounded-2xl border border-forest/10 bg-white shadow-sm transition-shadow duration-200 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest"
                 >
-                  <span className="grid h-11 w-11 place-items-center rounded-xl bg-lime/20 text-forest">
-                    <Shield className="h-5 w-5" aria-hidden="true" strokeWidth={1.5} />
-                  </span>
-                  <div>
+                  <div className="overflow-hidden bg-forest/10">
+                    <Photo
+                      src={svc.image}
+                      alt={svc.alt}
+                      fallbackSrc={images.pageHeroDefault}
+                      loading="lazy"
+                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                      className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col p-6">
                     <h3 className="font-heading text-lg font-semibold text-ink group-hover:text-forest">
                       {svc.label}
                     </h3>
-                    <span className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-forest">
+                    <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-forest">
                       Learn more
                       <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-0.5">
                         →

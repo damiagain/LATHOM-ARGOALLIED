@@ -2,7 +2,7 @@
  * All site copy lives here.
  * Brand tokens, navigation, services, sections, and metadata.
  */
-import { images } from './images'
+import { images, imageAlt } from './images'
 
 export type Route =
   | '/'
@@ -47,11 +47,35 @@ export const contact = {
 }
 
 /** The four core services across nav, footer and routes. */
-export const services: { label: string; route: Route; icon: ServiceIcon }[] = [
-  { label: 'Cassava Processing', route: '/services/cassava-processing', icon: 'cassava' },
-  { label: 'Meat & Livestock Processing', route: '/services/meat-livestock-processing', icon: 'meat' },
-  { label: 'Food Preservation & Canning', route: '/services/food-preservation-canning', icon: 'canning' },
-  { label: 'Premium Security Dog Breeding', route: '/services/dog-breeding', icon: 'dog' },
+export const services: { label: string; route: Route; icon: ServiceIcon; image: string; alt: string }[] = [
+  {
+    label: 'Cassava Processing',
+    route: '/services/cassava-processing',
+    icon: 'cassava',
+    image: images.services.cassava,
+    alt: imageAlt.services.cassava,
+  },
+  {
+    label: 'Meat & Livestock Processing',
+    route: '/services/meat-livestock-processing',
+    icon: 'meat',
+    image: images.services.meat,
+    alt: imageAlt.services.meat,
+  },
+  {
+    label: 'Food Preservation & Canning',
+    route: '/services/food-preservation-canning',
+    icon: 'canning',
+    image: images.services.canning,
+    alt: imageAlt.services.canning,
+  },
+  {
+    label: 'Premium Security Dog Breeding',
+    route: '/services/dog-breeding',
+    icon: 'dog',
+    image: images.services.dogs,
+    alt: imageAlt.services.dogs,
+  },
 ]
 
 export const nav = {
@@ -445,6 +469,8 @@ export type ServicePageData = {
   tagline: string
   heroImage: string
   heroImageAlt: string
+  overviewImage?: string
+  overviewImageAlt?: string
   heroCtaPrimary: { label: string; scrollTo: string }
   heroCtaSecondary?: { label: string; scrollTo: string }
   overviewHeading?: string
@@ -467,8 +493,10 @@ export const servicePages: ServicePageData[] = [
     slug: 'cassava-processing',
     title: 'Cassava Processing',
     tagline: "Turning Africa's Staple Crop into Quality Food Products.",
-    heroImage: '/images/services-cassava.jpg',
-    heroImageAlt: 'Peeled cassava roots being washed in a steel trough',
+    heroImage: images.services.cassavaHero,
+    heroImageAlt: imageAlt.services.cassavaHero,
+    overviewImage: images.services.cassava,
+    overviewImageAlt: imageAlt.services.cassava,
     heroCtaPrimary: { label: 'Enquire About Our Cassava Products', scrollTo: '#enquiry' },
     overviewParagraphs: [
       "Cassava is one of Africa's most important food crops. At Lathom, we focus on transforming this versatile crop into quality food products that are convenient, accessible and suitable for different consumer needs.",
@@ -489,8 +517,10 @@ export const servicePages: ServicePageData[] = [
     slug: 'meat-livestock-processing',
     title: 'Meat & Livestock Processing',
     tagline: 'Quality Meat Processing. Better Food Preservation.',
-    heroImage: '/images/services-meat.jpg',
-    heroImageAlt: 'A worker in protective clothing trimming poultry in a clean processing room',
+    heroImage: images.services.meatHero,
+    heroImageAlt: imageAlt.services.meatHero,
+    overviewImage: images.services.meat,
+    overviewImageAlt: imageAlt.services.meat,
     heroCtaPrimary: { label: 'Request a Product Enquiry', scrollTo: '#enquiry' },
     overviewParagraphs: [
       'We process poultry and livestock produce to support the availability of quality meat products for households, retailers, food businesses and bulk buyers.',
@@ -521,8 +551,10 @@ export const servicePages: ServicePageData[] = [
     slug: 'food-preservation-canning',
     title: 'Food Preservation & Canning',
     tagline: "Preserving Today's Harvest for Tomorrow's Consumption.",
-    heroImage: '/images/services-canning.jpg',
-    heroImageAlt: 'Sealed jars and cans of sweet corn and pepper on a production line',
+    heroImage: images.services.canningHero,
+    heroImageAlt: imageAlt.services.canningHero,
+    overviewImage: images.services.canning,
+    overviewImageAlt: imageAlt.services.canning,
     heroCtaPrimary: { label: 'Partner With Our Processing Team', scrollTo: '#enquiry' },
     overviewParagraphs: [
       'One of the biggest challenges facing African agriculture is the loss of perishable produce due to limited preservation and processing infrastructure.',
@@ -546,8 +578,10 @@ export const servicePages: ServicePageData[] = [
     slug: 'dog-breeding',
     title: 'Premium Security Dog Breeding',
     tagline: 'Protecting Farms. Securing Agricultural Investments.',
-    heroImage: '/images/services-dogs.jpg',
-    heroImageAlt: 'A handler seated between a Boerboel and a German Shepherd on an estate',
+    heroImage: images.services.dogsHero,
+    heroImageAlt: imageAlt.services.dogsHero,
+    overviewImage: images.services.dogs,
+    overviewImageAlt: imageAlt.services.dogs,
     heroCtaPrimary: { label: 'Explore Our Breeds', scrollTo: '#breeds' },
     heroCtaSecondary: { label: 'Enquire About Available Puppies', scrollTo: '#enquiry' },
     overviewParagraphs: [
@@ -565,26 +599,26 @@ export const servicePages: ServicePageData[] = [
       {
         name: 'Boerboel',
         body: 'A powerful South African mastiff breed known for its protective instincts, strength and loyalty.',
-        image: '/images/dogs-boerboel.jpg',
-        alt: 'A Boerboel dog standing on a farm',
+        image: images.breeds.boerboel,
+        alt: imageAlt.breeds.boerboel,
       },
       {
         name: 'German Shepherd (GSD)',
         body: 'An intelligent, versatile and trainable working breed suitable for property protection and various security roles.',
-        image: '/images/dogs-german-shepherd.jpg',
-        alt: 'A German Shepherd dog in a working dog pose',
+        image: images.breeds.germanShepherd,
+        alt: imageAlt.breeds.germanShepherd,
       },
       {
         name: 'Belgian Malinois',
         body: 'An athletic, highly driven and intelligent working breed known for its suitability for professional working-dog activities.',
-        image: '/images/dogs-belgian-malinois.jpg',
-        alt: 'A Belgian Malinois dog in an alert stance',
+        image: images.breeds.belgianMalinois,
+        alt: imageAlt.breeds.belgianMalinois,
       },
       {
         name: 'Caucasian Shepherd',
         body: 'A large livestock guardian breed traditionally used to protect livestock and property.',
-        image: '/images/dogs-caucasian-shepherd.jpg',
-        alt: 'A Caucasian Shepherd dog standing guard',
+        image: images.breeds.caucasianShepherd,
+        alt: imageAlt.breeds.caucasianShepherd,
       },
     ],
     breedingPhilosophyChecklist: [
@@ -626,8 +660,8 @@ export const servicesOverview = {
       description:
         'We transform locally sourced cassava into quality food products. Our focus is on convenient, accessible staples such as garri and cassava flour.',
       chips: ['Garri', 'Cassava Flour', 'Packaged Cassava Products'],
-      image: '/images/services-cassava.jpg',
-      alt: 'Peeled cassava roots being washed in a steel trough',
+      image: images.services.cassava,
+      alt: imageAlt.services.cassava,
       route: '/services/cassava-processing' as Route,
     },
     {
@@ -637,8 +671,8 @@ export const servicesOverview = {
       description:
         'We process poultry and livestock produce for households, retailers, food businesses and bulk buyers. Our focus is hygienic handling, packaging and preservation.',
       chips: ['Chicken', 'Guinea Fowl', 'Pork', 'Goat Meat', 'Beef'],
-      image: '/images/services-meat.jpg',
-      alt: 'A worker in protective clothing trimming poultry in a clean processing room',
+      image: images.services.meat,
+      alt: imageAlt.services.meat,
       route: '/services/meat-livestock-processing' as Route,
     },
     {
@@ -648,8 +682,8 @@ export const servicesOverview = {
       description:
         'We are developing preservation solutions that extend shelf life and reduce post-harvest losses. This helps seasonal produce serve consumers for longer.',
       chips: ['Sweet Corn', 'Pepper', 'Fruits and Vegetables'],
-      image: '/images/services-canning.jpg',
-      alt: 'Sealed jars and cans of sweet corn and pepper on a production line',
+      image: images.services.canning,
+      alt: imageAlt.services.canning,
       route: '/services/food-preservation-canning' as Route,
     },
     {
@@ -659,8 +693,8 @@ export const servicesOverview = {
       description:
         'A dedicated breeding programme focused on pedigree documentation, sound temperament and responsible breeding.',
       chips: ['Boerboel', 'German Shepherd', 'Belgian Malinois', 'Caucasian Shepherd'],
-      image: '/images/services-dogs.jpg',
-      alt: 'A handler seated between a Boerboel and a German Shepherd on an estate',
+      image: images.services.dogs,
+      alt: imageAlt.services.dogs,
       route: '/services/dog-breeding' as Route,
     },
   ],
@@ -750,7 +784,7 @@ export const locationsPageData = {
     {
       name: 'Ikorodu, Lagos State',
       description: 'Our operational base supporting our agricultural and processing activities.',
-      image: '/images/services-cassava.jpg',
+      image: images.services.cassava,
       alt: 'Lathom agricultural and processing operational base in Ikorodu, Lagos State',
     },
     {

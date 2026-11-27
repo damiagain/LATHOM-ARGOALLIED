@@ -88,7 +88,8 @@ export default function ServicesPage() {
                       alt={section.alt}
                       fallbackSrc={images.pageHeroDefault}
                       loading="lazy"
-                      className="aspect-[4/3] w-full object-cover transition-transform duration-500 hover:scale-105"
+                      sizes="(min-width: 1024px) 50vw, 100vw"
+                      className="aspect-[16/10] w-full object-cover object-center md:aspect-[4/3] transition-transform duration-500 hover:scale-105"
                     />
                   </div>
                 </Reveal>

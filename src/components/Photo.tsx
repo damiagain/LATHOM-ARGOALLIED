@@ -12,12 +12,16 @@ export function Photo({
   className = '',
   fallbackSrc,
   loading,
+  sizes,
+  priority,
 }: {
   src: string
   alt: string
   className?: string
   fallbackSrc?: string
   loading?: 'lazy' | 'eager'
+  sizes?: string
+  priority?: boolean
 }) {
   const [current, setCurrent] = useState(src)
   const [failed, setFailed] = useState(false)
@@ -28,7 +32,9 @@ export function Photo({
     <img
       src={current}
       alt={alt}
-      loading={loading}
+      loading={priority ? 'eager' : loading}
+      fetchPriority={priority ? 'high' : undefined}
+      sizes={sizes}
       className={className}
       onError={() => {
         if (fallbackSrc && current !== fallbackSrc) setCurrent(fallbackSrc)
