@@ -28,12 +28,16 @@ export function Navbar({
   const pathname = usePathname()
   const active = activeProp ?? (pathname as Route)
   const [scrolled, setScrolled] = useState(false)
+  const [mobileScrolled, setMobileScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(defaultMenuOpen)
 
   useEffect(() => setMenuOpen(defaultMenuOpen), [defaultMenuOpen])
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12)
+    const onScroll = () => {
+      setScrolled(window.scrollY > 12)
+      setMobileScrolled(window.scrollY > 24)
+    }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -86,33 +90,39 @@ export function Navbar({
         </nav>
       </header>
 
-      {/* Mobile + tablet: floating bar */}
-      <header className="fixed inset-x-0 top-3 z-40 mx-4 md:top-4 md:mx-6 lg:hidden">
-        <div
-          className={`flex h-14 items-center justify-between rounded-full border pl-2 pr-1.5 backdrop-blur-xl transition-[background-color,box-shadow] duration-300 ${
-            scrolled
-              ? 'border-white/70 bg-white/95 shadow-[0_12px_32px_-12px_rgba(14,26,23,0.35)]'
-              : 'border-white/60 bg-white/90 shadow-[0_8px_24px_-12px_rgba(14,26,23,0.25)]'
+      {/* Mobile + tablet: transparent at top, solid off-white bar after scroll */}
+      <header
+        className={`fixed inset-x-0 top-0 z-40 flex h-14 items-center justify-between px-4 transition-[background-color,box-shadow] duration-200 lg:hidden ${
+          mobileScrolled
+            ? 'bg-offwhite shadow-[0_1px_10px_rgba(14,26,23,0.10)]'
+            : 'bg-transparent'
+        }`}
+      >
+        <Link
+          href="/home"
+          aria-label="Lathom Agroallied — home"
+          className={`flex h-11 min-w-11 items-center rounded-xl transition-[filter] duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 ${
+            mobileScrolled
+              ? 'focus-visible:outline-forest'
+              : 'brightness-0 invert drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)] focus-visible:outline-white'
           }`}
         >
-          <Link
-            href="/home"
-            aria-label="Lathom Agroallied — home"
-            className="grid h-11 min-w-11 place-items-center rounded-xl px-0.5"
-          >
-            <LogoMark size={40} />
-          </Link>
-          <button
-            type="button"
-            onClick={() => setMenuOpen(true)}
-            aria-label="Open menu"
-            aria-expanded={menuOpen}
-            aria-controls="mobile-menu"
-            className="grid h-11 w-11 place-items-center rounded-full bg-forest text-white transition-transform duration-150 ease-[var(--ease-out-strong)] active:scale-[0.94]"
-          >
-            <Menu className="h-5 w-5" aria-hidden="true" />
-          </button>
-        </div>
+          <LogoMark size={38} />
+        </Link>
+        <button
+          type="button"
+          onClick={() => setMenuOpen(true)}
+          aria-label="Open menu"
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
+          className={`grid h-11 w-11 place-items-center rounded-full transition-[background-color,color,box-shadow,transform] duration-200 ease-[var(--ease-out-strong)] active:scale-[0.94] focus-visible:outline-2 focus-visible:outline-offset-2 ${
+            mobileScrolled
+              ? 'bg-transparent text-forest hover:bg-forest/10 focus-visible:outline-forest'
+              : 'bg-white/15 text-white backdrop-blur-md shadow-[0_2px_10px_rgba(0,0,0,0.35)] hover:bg-white/25 focus-visible:outline-white'
+          }`}
+        >
+          <Menu className="h-5 w-5" aria-hidden="true" />
+        </button>
       </header>
 
       <MobileMenu
