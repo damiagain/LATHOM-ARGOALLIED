@@ -175,22 +175,23 @@ export function ServicePage({ data }: { data: ServicePageData }) {
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {data.iconCards.map((card, i) => (
               <Reveal key={card.title} delay={i * 0.05} className="h-full">
-                <div className="group flex h-full min-h-[96px] overflow-hidden rounded-2xl border border-forest/10 bg-white shadow-sm transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-md motion-reduce:transition-none motion-reduce:hover:translate-y-0 lg:min-h-[112px]">
-                  <div className="relative w-1/4 min-w-[84px] max-w-[160px] shrink-0 self-stretch overflow-hidden rounded-r-2xl bg-linear-to-br from-forest/15 to-forest/30">
+                <div
+                  style={{ '--card-img-w': 'clamp(84px, 25%, 140px)' } as React.CSSProperties}
+                  className="group relative flex h-full min-h-[84px] items-center overflow-hidden rounded-2xl border border-forest/10 bg-white py-5 pl-[calc(var(--card-img-w)+16px)] pr-4 shadow-sm transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-md motion-reduce:transition-none motion-reduce:hover:translate-y-0 md:pr-5 lg:min-h-[88px]"
+                >
+                  <div className="absolute inset-y-0 left-0 w-[var(--card-img-w)] overflow-hidden rounded-r-2xl bg-linear-to-br from-forest/15 to-forest/30">
                     <Photo
                       src={card.image}
                       alt={card.alt}
                       fallbackSrc={card.fallbackImage ?? data.overviewImage ?? images.pageHeroDefault}
                       loading="lazy"
-                      sizes="(min-width: 1024px) 160px, 25vw"
-                      className={`h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100 ${
+                      sizes="(min-width: 1024px) 140px, 25vw"
+                      className={`absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100 ${
                         card.imagePosition === 'center 30%' ? 'object-[center_30%]' : 'object-center'
                       }`}
                     />
                   </div>
-                  <div className="flex min-w-0 flex-1 items-center px-4 py-4 md:px-5">
-                    <p className="text-base font-semibold leading-snug text-ink">{card.title}</p>
-                  </div>
+                  <p className="min-w-0 text-base font-semibold leading-snug text-ink">{card.title}</p>
                 </div>
               </Reveal>
             ))}
