@@ -4,11 +4,11 @@ import React, { useEffect, useId, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { ChevronDown, Menu, X, ArrowRight } from 'lucide-react'
+import { ChevronDown, Menu, X, ArrowRight, Info, Handshake } from 'lucide-react'
 
 import { LogoMark } from './LogoMark'
 import { ServiceIcon } from './ServiceIcon'
-import { nav, services, type Route } from '@/content/content'
+import { aboutMenu, nav, services, type Route } from '@/content/content'
 
 const EASE = [0.23, 1, 0.32, 1] as const
 
@@ -30,6 +30,7 @@ export function Navbar({
   const [scrolled, setScrolled] = useState(false)
   const [mobileScrolled, setMobileScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(defaultMenuOpen)
+  const [openDropdown, setOpenDropdown] = useState<'about' | 'services' | null>(null)
 
   useEffect(() => setMenuOpen(defaultMenuOpen), [defaultMenuOpen])
 
@@ -59,13 +60,56 @@ export function Navbar({
             <LogoMark size={44} />
           </Link>
 
-          <ul className="flex min-w-0 flex-1 items-center justify-center gap-6 px-2 xl:gap-8">
-            {nav.links.map((link) =>
-              link.hasMenu ? (
-                <li key={link.route}>
-                  <ServicesDropdown active={active.startsWith('/services')} label={link.label} />
-                </li>
-              ) : (
+          <ul className="flex min-w-0 flex-1 items-center justify-center gap-5 px-2 xl:gap-8">
+            {nav.links.map((link) => {
+              if (link.menu === 'about') {
+                return (
+                  <li key={link.route}>
+                    <NavDropdown
+                      id="about"
+                      active={active === '/about' || active.startsWith('/partnerships')}
+                      label={link.label}
+                      open={openDropdown === 'about'}
+                      onOpen={() => setOpenDropdown('about')}
+                      onClose={() => setOpenDropdown((curr) => (curr === 'about' ? null : curr))}
+                      onToggle={() => setOpenDropdown((curr) => (curr === 'about' ? null : 'about'))}
+                      panelWidthClass="w-[260px]"
+                      items={aboutMenu.map((item) => ({
+                        label: item.label,
+                        route: item.route,
+                        icon:
+                          item.icon === 'info' ? (
+                            <Info className="h-[18px] w-[18px]" aria-hidden="true" strokeWidth={1.75} />
+                          ) : (
+                            <Handshake className="h-[18px] w-[18px]" aria-hidden="true" strokeWidth={1.75} />
+                          ),
+                      }))}
+                    />
+                  </li>
+                )
+              }
+              if (link.menu === 'services') {
+                return (
+                  <li key={link.route}>
+                    <NavDropdown
+                      id="services"
+                      active={active.startsWith('/services')}
+                      label={link.label}
+                      open={openDropdown === 'services'}
+                      onOpen={() => setOpenDropdown('services')}
+                      onClose={() => setOpenDropdown((curr) => (curr === 'services' ? null : curr))}
+                      onToggle={() => setOpenDropdown((curr) => (curr === 'services' ? null : 'services'))}
+                      panelWidthClass="w-[340px]"
+                      items={services.map((s) => ({
+                        label: s.label,
+                        route: s.route,
+                        icon: <ServiceIcon name={s.icon} />,
+                      }))}
+                    />
+                  </li>
+                )
+              }
+              return (
                 <li key={link.route}>
                   <DesktopLink
                     label={link.label}
@@ -73,8 +117,8 @@ export function Navbar({
                     href={link.route}
                   />
                 </li>
-              ),
-            )}
+              )
+            })}
           </ul>
 
           {!hideQuote && (
@@ -159,14 +203,33 @@ function DesktopLink({
   )
 }
 
-function ServicesDropdown({
+type DropdownItem = {
+  label: string
+  route: Route
+  icon: React.ReactNode
+}
+
+function NavDropdown({
+  id,
   active,
   label,
+  open,
+  onOpen,
+  onClose,
+  onToggle,
+  items,
+  panelWidthClass = 'w-[340px]',
 }: {
+  id: string
   active: boolean
   label: string
+  open: boolean
+  onOpen: () => void
+  onClose: () => void
+  onToggle: () => void
+  items: DropdownItem[]
+  panelWidthClass?: string
 }) {
-  const [open, setOpen] = useState(false)
   const wrapRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const itemRefs = useRef<(HTMLAnchorElement | null)[]>([])
@@ -177,11 +240,11 @@ function ServicesDropdown({
   useEffect(() => {
     if (!open) return
     const onDown = (e: MouseEvent) => {
-      if (!wrapRef.current?.contains(e.target as Node)) setOpen(false)
+      if (!wrapRef.current?.contains(e.target as Node)) onClose()
     }
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        setOpen(false)
+        onClose()
         buttonRef.current?.focus()
       }
     }
@@ -191,26 +254,26 @@ function ServicesDropdown({
       document.removeEventListener('mousedown', onDown)
       document.removeEventListener('keydown', onKey)
     }
-  }, [open])
+  }, [open, onClose])
 
   const openNow = () => {
     if (closeTimer.current) window.clearTimeout(closeTimer.current)
-    setOpen(true)
+    onOpen()
   }
   const closeSoon = () => {
-    closeTimer.current = window.setTimeout(() => setOpen(false), 120)
+    closeTimer.current = window.setTimeout(() => onClose(), 120)
   }
 
   const onButtonKey = (e: React.KeyboardEvent) => {
     if (e.key === 'ArrowDown') {
       e.preventDefault()
-      setOpen(true)
+      onOpen()
       requestAnimationFrame(() => itemRefs.current[0]?.focus())
     }
   }
 
   const onItemKey = (i: number) => (e: React.KeyboardEvent) => {
-    const n = services.length
+    const n = items.length
     if (e.key === 'ArrowDown') {
       e.preventDefault()
       itemRefs.current[(i + 1) % n]?.focus()
@@ -218,18 +281,18 @@ function ServicesDropdown({
       e.preventDefault()
       itemRefs.current[(i - 1 + n) % n]?.focus()
     } else if (e.key === 'Tab' && !e.shiftKey && i === n - 1) {
-      setOpen(false)
+      onClose()
     }
   }
 
   return (
-    <div ref={wrapRef} className="relative" onMouseEnter={openNow} onMouseLeave={closeSoon}>
+    <div ref={wrapRef} data-dropdown={id} className="relative" onMouseEnter={openNow} onMouseLeave={closeSoon}>
       <button
         ref={buttonRef}
         type="button"
         aria-expanded={open}
         aria-controls={panelId}
-        onClick={() => setOpen((o) => !o)}
+        onClick={onToggle}
         onKeyDown={onButtonKey}
         className={`relative flex h-10 items-center gap-1 whitespace-nowrap rounded-md text-[14px] text-forest transition-colors duration-200 hover:text-ink xl:text-[15px] ${
           active ? 'font-semibold' : 'font-medium'
@@ -254,22 +317,22 @@ function ServicesDropdown({
             style={{ transformOrigin: 'top center' }}
             className="absolute left-1/2 top-full -translate-x-1/2 pt-4"
           >
-            <ul className="w-[340px] rounded-2xl border border-forest/10 bg-white p-2 shadow-[0_24px_48px_-16px_rgba(14,26,23,0.35)]">
-              {services.map((s, i) => (
-                <li key={s.route}>
+            <ul className={`${panelWidthClass} rounded-2xl border border-forest/10 bg-white p-2 shadow-[0_24px_48px_-16px_rgba(14,26,23,0.35)]`}>
+              {items.map((item, i) => (
+                <li key={item.route}>
                   <Link
                     ref={(el) => {
                       itemRefs.current[i] = el
                     }}
-                    href={s.route}
-                    onClick={() => setOpen(false)}
+                    href={item.route}
+                    onClick={onClose}
                     onKeyDown={onItemKey(i)}
                     className="group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-ink transition-colors duration-150 hover:bg-offwhite focus-visible:bg-offwhite"
                   >
                     <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-forest/[0.07] text-forest transition-colors duration-150 group-hover:bg-lime">
-                      <ServiceIcon name={s.icon} />
+                      {item.icon}
                     </span>
-                    {s.label}
+                    {item.label}
                   </Link>
                 </li>
               ))}
@@ -294,8 +357,12 @@ function MobileMenu({
   defaultServicesOpen: boolean
   hideQuote?: boolean
 }) {
-  const [servicesOpen, setServicesOpen] = useState(defaultServicesOpen)
-  useEffect(() => setServicesOpen(defaultServicesOpen), [defaultServicesOpen])
+  const [openAccordion, setOpenAccordion] = useState<'about' | 'services' | null>(
+    defaultServicesOpen ? 'services' : null,
+  )
+  useEffect(() => {
+    setOpenAccordion(defaultServicesOpen ? 'services' : null)
+  }, [defaultServicesOpen])
   const closeRef = useRef<HTMLButtonElement>(null)
   const reduce = useReducedMotion()
   const onCloseRef = useRef(onClose)
@@ -354,68 +421,101 @@ function MobileMenu({
 
           <nav aria-label="Main" className="mx-auto w-full max-w-xl flex-1 px-5 pt-8 md:px-8">
             <ul className="divide-y divide-white/10 border-y border-white/10">
-              {nav.links.map((link, i) => (
-                <motion.li key={link.route} {...item(i)}>
-                  {link.hasMenu ? (
-                    <>
-                      <button
-                        type="button"
-                        aria-expanded={servicesOpen}
-                        aria-controls="mobile-services"
-                        onClick={() => setServicesOpen((o) => !o)}
-                        className="flex min-h-16 w-full items-center justify-between py-3 text-left font-heading text-[28px] font-medium"
+              {nav.links.map((link, i) => {
+                const isAboutMenu = link.menu === 'about'
+                const isServicesMenu = link.menu === 'services'
+                const hasAccordion = isAboutMenu || isServicesMenu
+                const accordionKey = isAboutMenu ? 'about' : 'services'
+                const accordionOpen = hasAccordion && openAccordion === accordionKey
+                const isActive = isAboutMenu
+                  ? active === '/about' || active.startsWith('/partnerships')
+                  : isServicesMenu
+                    ? active.startsWith('/services')
+                    : active === link.route
+
+                return (
+                  <motion.li key={link.route} {...item(i)}>
+                    {hasAccordion ? (
+                      <>
+                        <button
+                          type="button"
+                          aria-expanded={accordionOpen}
+                          aria-controls={`mobile-${accordionKey}`}
+                          onClick={() =>
+                            setOpenAccordion((curr) => (curr === accordionKey ? null : accordionKey))
+                          }
+                          className="flex min-h-16 w-full items-center justify-between py-3 text-left font-heading text-[28px] font-medium"
+                        >
+                          <span className="flex items-center gap-3">
+                            {link.label}
+                            {isActive && <ActiveDot inline />}
+                          </span>
+                          <ChevronDown
+                            className={`h-6 w-6 text-white/60 transition-transform duration-200 ease-[var(--ease-out-strong)] ${accordionOpen ? 'rotate-180' : ''}`}
+                            aria-hidden="true"
+                          />
+                        </button>
+                        <AnimatePresence initial={false}>
+                          {accordionOpen && (
+                            <motion.div
+                              id={`mobile-${accordionKey}`}
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 'auto', opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.24, ease: EASE }}
+                              className="overflow-hidden"
+                            >
+                              <div className="flex flex-col gap-1 pb-4">
+                                {isAboutMenu
+                                  ? aboutMenu.map((item) => (
+                                      <Link
+                                        key={item.route}
+                                        href={item.route}
+                                        onClick={onClose}
+                                        className="flex min-h-12 items-center gap-3 rounded-xl px-2 text-base text-white/85 transition-colors duration-150 hover:bg-white/5 hover:text-white"
+                                      >
+                                        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-white/10 text-lime">
+                                          {item.icon === 'info' ? (
+                                            <Info className="h-[18px] w-[18px]" aria-hidden="true" strokeWidth={1.75} />
+                                          ) : (
+                                            <Handshake className="h-[18px] w-[18px]" aria-hidden="true" strokeWidth={1.75} />
+                                          )}
+                                        </span>
+                                        {item.label}
+                                      </Link>
+                                    ))
+                                  : services.map((s) => (
+                                      <Link
+                                        key={s.route}
+                                        href={s.route}
+                                        onClick={onClose}
+                                        className="flex min-h-12 items-center gap-3 rounded-xl px-2 text-base text-white/85 transition-colors duration-150 hover:bg-white/5 hover:text-white"
+                                      >
+                                        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-white/10 text-lime">
+                                          <ServiceIcon name={s.icon} />
+                                        </span>
+                                        {s.label}
+                                      </Link>
+                                    ))}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </>
+                    ) : (
+                      <Link
+                        href={link.route}
+                        onClick={onClose}
+                        aria-current={isActive ? 'page' : undefined}
+                        className="flex min-h-16 items-center gap-3 py-3 font-heading text-[28px] font-medium"
                       >
-                        <span className="flex items-center gap-3">
-                          {link.label}
-                          {active === link.route && <ActiveDot inline />}
-                        </span>
-                        <ChevronDown
-                          className={`h-6 w-6 text-white/60 transition-transform duration-200 ease-[var(--ease-out-strong)] ${servicesOpen ? 'rotate-180' : ''}`}
-                          aria-hidden="true"
-                        />
-                      </button>
-                      <AnimatePresence initial={false}>
-                        {servicesOpen && (
-                          <motion.div
-                            id="mobile-services"
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: 'auto', opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.24, ease: EASE }}
-                            className="overflow-hidden"
-                          >
-                            <div className="flex flex-col gap-1 pb-4">
-                              {services.map((s) => (
-                                <Link
-                                  key={s.route}
-                                  href={s.route}
-                                  onClick={onClose}
-                                  className="flex min-h-12 items-center gap-3 rounded-xl px-2 text-base text-white/85 transition-colors duration-150 hover:bg-white/5 hover:text-white"
-                                >
-                                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-white/10 text-lime">
-                                    <ServiceIcon name={s.icon} />
-                                  </span>
-                                  {s.label}
-                                </Link>
-                              ))}
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </>
-                  ) : (
-                    <Link
-                      href={link.route}
-                      onClick={onClose}
-                      aria-current={active === link.route ? 'page' : undefined}
-                      className="flex min-h-16 items-center gap-3 py-3 font-heading text-[28px] font-medium"
-                    >
-                      {link.label}
-                      {active === link.route && <ActiveDot inline />}
-                    </Link>
-                  )}
-                </motion.li>
-              ))}
+                        {link.label}
+                        {isActive && <ActiveDot inline />}
+                      </Link>
+                    )}
+                  </motion.li>
+                )
+              })}
             </ul>
           </nav>
 

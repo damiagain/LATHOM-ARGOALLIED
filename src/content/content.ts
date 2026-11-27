@@ -78,11 +78,16 @@ export const services: { label: string; route: Route; icon: ServiceIcon; image: 
   },
 ]
 
+export const aboutMenu: { label: string; route: Route; icon: 'info' | 'handshake' }[] = [
+  { label: 'About Lathom', route: '/about', icon: 'info' },
+  { label: 'Partnerships', route: '/partnerships', icon: 'handshake' },
+]
+
 export const nav = {
   links: [
     { label: 'Home', route: '/home' as Route },
-    { label: 'About Us', route: '/about' as Route },
-    { label: 'Our Services', route: '/services' as Route, hasMenu: true },
+    { label: 'About Us', route: '/about' as Route, menu: 'about' as const },
+    { label: 'Our Services', route: '/services' as Route, menu: 'services' as const },
     { label: 'Our Marketplace', route: '/marketplace' as Route },
     { label: 'Our Locations', route: '/locations' as Route },
     { label: 'Contact Us', route: '/contact' as Route },
